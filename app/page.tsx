@@ -10,9 +10,6 @@ export default function HomePage() {
 
   const { theme } = useTheme();
 
-
-  console.log(theme, "theme:::::::::::::::")
-
   const cards = [
     {
       title: "Nature",
@@ -143,7 +140,7 @@ export default function HomePage() {
               { title: "Couples", query: "French countryside landscape photography", img: "/gallery/Couple/_O1A9803.JPG" },
               { title: "Marriage", query: "Paris street photography, candid moments", img: "/gallery/Marriage/_H5A3097.jpg" },
               { title: "Events", query: "elegant wedding photography, romantic", img: "/gallery/Events/_MG_2212.JPEG" },
-            ].map((category, index) => (
+            ].map((category) => (
               <Link
                 key={category.title}
                 href={`/gallery#${category.title.toLowerCase()}`}
@@ -175,9 +172,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className=" md:py-10">
+      {/* <section className=" md:py-10">
         <AnimatedTestimonials testimonials={testimonials} />;
-      </section>
+      </section> */}
 
       {/* Call to Action */}
       <section className="py-24 md:py-32">
