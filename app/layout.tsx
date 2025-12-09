@@ -4,9 +4,11 @@ import { GeistSans } from "geist/font/sans"
 import { Playfair_Display } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { ThemeProvider } from "@/components/theme-provider"
-import { Navigation } from "@/components/navigation"
+import { SonnerProvider } from "@/components/sonner-provider"
+import { ConfirmProvider } from "@/components/ui/confirm-dialog";
+
 import "./globals.css"
-import { Suspense } from "react"
+
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -17,7 +19,8 @@ const playfair = Playfair_Display({
 export const metadata: Metadata = {
   title: "Abhishek Das | Photographer",
   description: "Paris-based photographer specializing in portraits, landscapes, street photography, and events",
-  generator: "v0.app",
+
+
 }
 
 export default function RootLayout({
@@ -29,10 +32,10 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`font-sans ${GeistSans.variable} ${playfair.variable} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
-          <Suspense>
-            <Navigation />
-          </Suspense>
-          <main>{children}</main>
+          <ConfirmProvider>
+            <main>{children}</main>
+          </ConfirmProvider>
+          <SonnerProvider />
         </ThemeProvider>
         <Analytics />
       </body>

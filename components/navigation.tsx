@@ -18,6 +18,10 @@ export function Navigation() {
     const pathname = usePathname()
     const { theme, setTheme } = useTheme()
 
+    // if (pathname.startsWith("/author")) {
+    //     return null; // hide nav on author/admin pages
+    // }
+
     return (
         <nav className="fixed top-0 left-0 right-0 z-50 bg-background/10 dark:bg-background/60 backdrop-blur-md border-b">
             <div className="container mx-auto px-6 py-4">
@@ -26,7 +30,7 @@ export function Navigation() {
                         href="/"
                         className="font-serif text-xl tracking-tight text-foreground  transition-colors"
                     >
-                        Abhishek Das
+                        A3Y PHOTOGRAPHY
                     </Link>
 
                     <div className="flex items-center gap-8">

@@ -117,15 +117,21 @@ export default function ContactPage() {
                     </svg>
                   </a>
                   <a
-                    href="https://linkedin.com"
+                    href="https://www.behance.net/aby7269?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnHNTn7YXr9Q9dTV4Mjy7_ojwMtTLBno4FLIoXUTZDabBuzG1Liu8yXV6X4pE_aem_S6g1OYZJzSgvXRigssSiFQ"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-3 bg-secondary hover:bg-accent hover:text-accent-foreground rounded-full transition-colors"
                   >
-                    <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                    <svg
+                      className="h-5 w-5"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <path d="M9.86 11.083c.595-.285 1.017-.86 1.017-1.74 0-1.704-1.266-2.343-2.88-2.343H3v9.678h5.222c1.692 0 3.029-.987 3.029-2.818 0-1.238-.61-2.063-1.391-2.377zm-4.072-2.88h2.322c.747 0 1.266.36 1.266 1.08 0 .72-.519 1.095-1.266 1.095H5.788V8.203zm2.447 6.322H5.788v-2.46h2.447c.86 0 1.421.495 1.421 1.23 0 .733-.56 1.23-1.421 1.23zM19.337 7c-2.322 0-3.938 1.53-3.938 4.11 0 2.637 1.616 4.143 4.003 4.143 1.876 0 3.11-.99 3.484-2.686l.015-.074h-1.83l-.015.044c-.18.802-.778 1.274-1.639 1.274-1.095 0-1.844-.81-1.875-2.04h5.373l.015-.074c.015-.134.03-.33.03-.57C22.96 8.53 21.51 7 19.337 7zm-1.78 3.37c.12-.93.78-1.544 1.72-1.544.963 0 1.624.614 1.704 1.544h-3.424zM17.75 6.25h3.2V7.5h-3.2V6.25z" />
                     </svg>
                   </a>
+
                 </div>
               </div>
             </div>

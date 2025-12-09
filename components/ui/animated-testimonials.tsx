@@ -2,16 +2,17 @@
 
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 import { motion, AnimatePresence } from "motion/react";
-import Image from "next/image"
-
+import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 
 type Testimonial = {
   quote: string;
   name: string;
-  designation: string;
   src: string;
+  // optional, in case your data still has it, but we don't use it
+  designation?: string;
 };
+
 export const AnimatedTestimonials = ({
   testimonials,
   autoplay = false,
@@ -21,28 +22,29 @@ export const AnimatedTestimonials = ({
 }) => {
   const [active, setActive] = useState(0);
 
- const handleNext = useCallback(() => {
-  setActive((prev) => (prev + 1) % testimonials.length);
-}, [testimonials.length]);
+  const handleNext = useCallback(() => {
+    setActive((prev) => (prev + 1) % testimonials.length);
+  }, [testimonials.length]);
 
   const handlePrev = () => {
     setActive((prev) => (prev - 1 + testimonials.length) % testimonials.length);
   };
 
-  const isActive = (index: number) => {
-    return index === active;
-  };
+  const isActive = (index: number) => index === active;
 
   useEffect(() => {
     if (autoplay) {
       const interval = setInterval(handleNext, 5000);
       return () => clearInterval(interval);
     }
-  }, [autoplay,handleNext]);
+  }, [autoplay, handleNext]);
 
-  const randomRotateY = () => {
-    return Math.floor(Math.random() * 21) - 10;
+  // ✅ deterministic rotation (no Math.random → no hydration mismatch)
+  const getRotateForIndex = (index: number) => {
+    const rotations = [-8, 5, -4, 7, -6, 3];
+    return rotations[index % rotations.length];
   };
+
   return (
     <div className="mx-auto max-w-sm px-4 py-20 font-sans antialiased md:max-w-4xl md:px-8 lg:px-12">
       <div className="relative grid grid-cols-1 gap-20 md:grid-cols-2">
@@ -51,18 +53,18 @@ export const AnimatedTestimonials = ({
             <AnimatePresence>
               {testimonials.map((testimonial, index) => (
                 <motion.div
-                  key={testimonial.src}
+                  key={index}
                   initial={{
                     opacity: 0,
                     scale: 0.9,
                     z: -100,
-                    rotate: randomRotateY(),
+                    rotate: getRotateForIndex(index),
                   }}
                   animate={{
                     opacity: isActive(index) ? 1 : 0.7,
                     scale: isActive(index) ? 1 : 0.95,
                     z: isActive(index) ? 0 : -100,
-                    rotate: isActive(index) ? 0 : randomRotateY(),
+                    rotate: isActive(index) ? 0 : getRotateForIndex(index),
                     zIndex: isActive(index)
                       ? 40
                       : testimonials.length + 2 - index,
@@ -72,7 +74,7 @@ export const AnimatedTestimonials = ({
                     opacity: 0,
                     scale: 0.9,
                     z: 100,
-                    rotate: randomRotateY(),
+                    rotate: getRotateForIndex(index),
                   }}
                   transition={{
                     duration: 0.4,
@@ -93,6 +95,7 @@ export const AnimatedTestimonials = ({
             </AnimatePresence>
           </div>
         </div>
+
         <div className="flex flex-col justify-between py-4">
           <motion.div
             key={active}
@@ -116,10 +119,10 @@ export const AnimatedTestimonials = ({
             <h3 className="text-2xl font-bold text-black dark:text-white">
               {testimonials[active].name}
             </h3>
-            {/* <p className="text-sm text-gray-500 dark:text-neutral-500">
-              {testimonials[active].designation}
-            </p> */}
-            {/* <motion.p className="mt-8 text-lg text-gray-500 dark:text-neutral-300">
+
+            {/* designation removed from UI */}
+
+            <motion.p className="mt-8 text-lg text-gray-500 dark:text-neutral-300">
               {testimonials[active].quote.split(" ").map((word, index) => (
                 <motion.span
                   key={index}
@@ -143,8 +146,9 @@ export const AnimatedTestimonials = ({
                   {word}&nbsp;
                 </motion.span>
               ))}
-            </motion.p> */}
+            </motion.p>
           </motion.div>
+
           <div className="flex gap-4 pt-12 md:pt-0">
             <button
               onClick={handlePrev}
