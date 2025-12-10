@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, } from "next/navigation";
 import { toast } from "sonner";
 
 export default function AuthorLoginPage() {
@@ -10,10 +10,18 @@ export default function AuthorLoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
-  const params = useSearchParams();
+
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const search = window.location.search;
+    if (!search) return;
+
+    const params = new URLSearchParams(search);
+
     if (params.get("message") === "login-required") {
+      // small delay so the toast provider is hydrated
       setTimeout(() => {
         toast.error("Please login");
       }, 50);
