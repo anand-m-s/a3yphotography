@@ -19,12 +19,14 @@ export default function AuthorLoginPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
+        cache: "no-store",  
       });
       const json = await res.json();
 
       console.log(res)
       if (res.ok && json.success) {
-        router.replace("/author"); // Redirect to admin dashboard
+        router.refresh();
+        router.replace("/author"); 
       } else {
         setError(json.message || "Login failed");
       }
