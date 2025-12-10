@@ -21,7 +21,6 @@ export default function AuthorLoginPage() {
     const params = new URLSearchParams(search);
 
     if (params.get("message") === "login-required") {
-      // small delay so the toast provider is hydrated
       setTimeout(() => {
         toast.error("Please login");
       }, 50);
@@ -43,7 +42,11 @@ export default function AuthorLoginPage() {
 
       console.log(res)
       if (res.ok && json.success) {
-        router.refresh();
+        // router.refresh();
+        // router.replace("/author");
+        router.refresh();               // revalidate server components
+        // small delay so the browser applies Set-Cookie
+        await new Promise((r) => setTimeout(r, 100));
         router.replace("/author");
       } else {
         setError(json.message || "Login failed");
