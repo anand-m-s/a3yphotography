@@ -12,20 +12,23 @@ import { toast } from "sonner"
 export default function HomePage() {
   const { theme } = useTheme()
 
-  const cards = [
-    {
-      title: "Nature",
-      src: "/gallery/Portraits/Montmartre - Paris/IMG_9087-5ps.jpg",
-    },
-    {
-      title: "Indoor",
-      src: "/gallery/Portraits/Montmartre - Paris/IMG_3212-1-ps.jpg",
-    },
-    {
-      title: "Street",
-      src: "/gallery/Portraits/Montmartre - Paris/IMG_3446-2.jpg",
-    },
-  ]
+
+
+
+  // const cards = [
+  //   {
+  //     title: "Nature",
+  //     src: "/gallery/Portraits/Montmartre - Paris/IMG_9087-5ps.jpg",
+  //   },
+  //   {
+  //     title: "Indoor",
+  //     src: "/gallery/Portraits/Montmartre - Paris/IMG_3212-1-ps.jpg",
+  //   },
+  //   {
+  //     title: "Street",
+  //     src: "/gallery/Portraits/Montmartre - Paris/IMG_3446-2.jpg",
+  //   },
+  // ]
 
   type TestimonialDoc = {
     _id: string
@@ -35,8 +38,29 @@ export default function HomePage() {
     createdAt?: string
   }
 
+  type FeaturedCategory = {
+    _id: string;
+    name: string;
+    slug: string;
+    imageUrl: string;
+  };
+
   const [testimonialsData, setTestimonialsData] = useState<TestimonialDoc[]>([])
   const [loadingTestimonials, setLoadingTestimonials] = useState(true)
+  const [featured, setFeatured] = useState<FeaturedCategory[]>([]);
+
+
+  useEffect(() => {
+    async function fetchFeatured() {
+      const res = await fetch("/api/featured");
+      const json = await res.json();
+      setFeatured(json.data || []);
+    }
+
+    fetchFeatured();
+  }, []);
+
+
 
 
 
@@ -151,7 +175,7 @@ export default function HomePage() {
       const uploadJson = await uploadRes.json();
       const imageUrl: string = uploadJson.secure_url;
 
-      
+
       const res = await fetch("/api/testimonials", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -221,7 +245,7 @@ export default function HomePage() {
       </section>
 
       {/* Introduction Section */}
-      <section className="py-24 md:py-32">
+      <section className="py-16 md:py-12">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
             <p className="text-sm uppercase tracking-widest text-muted-foreground mb-4">
@@ -255,64 +279,41 @@ export default function HomePage() {
       </section>
 
       {/* Featured Work Preview */}
-      <section className="py-24 md:py-32 bg-muted/30">
+
+
+      <section className="py-24 md:py-32 bg-muted/45 rounded-4xl">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <p className="text-sm uppercase tracking-widest text-muted-foreground mb-4">
               Portfolio
             </p>
-            <h2 className="font-serif text-3xl md:text-5xl mb-6">Featured Work</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              A curated selection of my recent projects across different photography styles
-            </p>
+            <h2 className="font-serif text-3xl md:text-5xl mb-6">
+              Featured Work
+            </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            {[
-              {
-                title: "Portraits",
-                query: "elegant portrait photography, natural light",
-                img: "/gallery/Portraits/Musee Du Louvre - Paris/_O1A4161.JPG",
-              },
-              {
-                title: "Couples",
-                query: "French countryside landscape photography",
-                img: "/gallery/Couple/_O1A9803.JPG",
-              },
-              {
-                title: "Marriage",
-                query: "Paris street photography, candid moments",
-                img: "/gallery/Marriage/_H5A3097.jpg",
-              },
-              {
-                title: "Events",
-                query: "elegant wedding photography, romantic",
-                img: "/gallery/Events/_MG_2212.JPEG",
-              },
-            ].map(category => (
+            {featured.map((cat) => (
               <Link
-                key={category.title}
-                href={`/gallery#${category.title.toLowerCase()}`}
+                key={cat._id}
+                href={`/gallery#${cat.slug}`}
                 className="group relative aspect-[3/4] overflow-hidden rounded-sm"
               >
                 <Image
-                  src={category.img}
-                  alt={category.title}
+                  src={cat.imageUrl}
+                  alt={cat.name}
                   fill
+                  unoptimized
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute bottom-0 left-0 right-0 p-6">
                   <h3 className="font-serif text-2xl text-foreground">
-                    {category.title}
+                    {cat.name}
                   </h3>
                 </div>
               </Link>
             ))}
           </div>
-
-          {/* <section className="md:py-10">
-            <FocusCards cards={cards} />
-          </section> */}
 
           <div className="text-center mt-3.5">
             <Button asChild size="lg">
@@ -345,7 +346,7 @@ export default function HomePage() {
             )}
           </div>
 
-          {/* Right: your existing form stays the same */}
+
           <form
             onSubmit={handleSubmit}
             className="rounded-2xl border border-border bg-background/70 backdrop-blur-sm p-6 space-y-5 shadow-sm"

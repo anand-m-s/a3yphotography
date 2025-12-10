@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { toast } from "sonner";
 
 export default function AuthorLoginPage() {
   const [username, setUsername] = useState("");
@@ -9,6 +10,15 @@ export default function AuthorLoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
+  const params = useSearchParams();
+
+  useEffect(() => {
+    if (params.get("message") === "login-required") {
+      setTimeout(() => {
+        toast.error("Please login");
+      }, 50);
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,14 +29,14 @@ export default function AuthorLoginPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
-        cache: "no-store",  
+        cache: "no-store",
       });
       const json = await res.json();
 
       console.log(res)
       if (res.ok && json.success) {
         router.refresh();
-        router.replace("/author"); 
+        router.replace("/author");
       } else {
         setError(json.message || "Login failed");
       }
