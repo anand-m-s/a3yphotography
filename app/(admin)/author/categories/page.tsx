@@ -187,7 +187,7 @@ export default function CategoriesPanel() {
             name="name"
             value={form.name}
             onChange={handleChange}
-            className="w-full rounded-3xl text-black border border-input bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-accent"
+            className="w-full rounded-3xl  border border-input bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-accent"
             placeholder="e.g. Portraits"
             required
           />
@@ -237,7 +237,7 @@ export default function CategoriesPanel() {
 
                 <div className="flex items-center justify-between gap-2 pt-1">
                   <div className="text-[11px] text-muted-foreground">
-                    ID: {cat._id.slice(-6)}
+                    {/* ID: {cat._id.slice(-6)} */}
                   </div>
                   <div className="flex gap-2">
                     <Button

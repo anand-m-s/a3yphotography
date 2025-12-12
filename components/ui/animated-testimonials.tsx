@@ -96,7 +96,7 @@ export const AnimatedTestimonials = ({
           </div>
         </div>
 
-        <div className="flex flex-col justify-between py-4">
+        <div className="flex flex-col justify-between py-2">
           <motion.div
             key={active}
             initial={{
@@ -122,7 +122,7 @@ export const AnimatedTestimonials = ({
 
             {/* designation removed from UI */}
 
-            <motion.p className="mt-8 text-lg text-gray-500 dark:text-neutral-300">
+            <motion.p className="mt-2 text-lg text-gray-500 dark:text-neutral-300">
               {testimonials[active].quote.split(" ").map((word, index) => (
                 <motion.span
                   key={index}

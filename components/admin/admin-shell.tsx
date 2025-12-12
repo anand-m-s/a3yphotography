@@ -14,6 +14,7 @@ import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 
 type AdminShellProps = {
@@ -29,7 +30,9 @@ export function AdminShell({ children }: AdminShellProps) {
 
   const handleLogout = async () => {
     try {
+      setOpen(false);
       await fetch("/api/admin/logout", { method: "POST" });
+      toast.success("logout")
     } catch (e) {
       console.error("Logout failed", e);
     } finally {
@@ -71,7 +74,7 @@ export function AdminShell({ children }: AdminShellProps) {
   return (
     <div
       className={cn(
-        "mx-auto flex w-full  flex-1 flex-col rounded-md border border-neutral-200 bg-gray-100 md:flex-row dark:border-neutral-700 dark:bg-neutral-800", 
+        "mx-auto flex w-full  flex-1 flex-col rounded-md border border-neutral-200 bg-gray-100 md:flex-row dark:border-neutral-700 dark:bg-neutral-800",
         "h-screen"
       )}
     >

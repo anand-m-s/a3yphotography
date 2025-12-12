@@ -324,15 +324,9 @@ export default function HomePage() {
       </section>
 
 
-      {/* <section className="md:py-18">
-        <AnimatedTestimonials testimonials={testimonialsData} />
-      </section> */}
-
-
-      {/* Testimonials + Form */}
       <section className="md:py-24">
         <div className="container mx-auto px-6 grid gap-10 lg:grid-cols-[3fr,2fr] items-start">
-          {/* Left: animated testimonials or fallback */}
+          {/* LEFT: animated testimonials */}
           <div>
             {loadingTestimonials ? (
               <p className="text-sm text-muted-foreground">Loading testimonials...</p>
@@ -347,71 +341,133 @@ export default function HomePage() {
           </div>
 
 
-          <form
-            onSubmit={handleSubmit}
-            className="rounded-2xl border border-border bg-background/70 backdrop-blur-sm p-6 space-y-5 shadow-sm"
-          >
-            <h3 className="text-lg font-semibold tracking-tight">
-              Share Your Experience
-            </h3>
 
-            {/* Name */}
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Name</label>
-              <input
-                name="name"
-                value={form.name ?? ""}
-                onChange={handleChange}
-                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-accent"
-                placeholder="name"
-                required
-              />
-            </div>
-
-            {/* Image Upload */}
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Photo</label>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleFileChange}
-                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-accent file:bg-transparent file:border-0 file:mr-3 file:font-medium file:text-sm"
-                required
-              />
-
-              {form.src && (
-                <Image
-                  src={form.src}
-                  alt="Preview"
-                  width={80}
-                  height={80}
-                  className="mt-2 rounded-md object-cover border"
-                />
-              )}
-            </div>
-
-            {/* Testimonial Quote */}
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Testimonial</label>
-              <textarea
-                name="quote"
-                value={form.quote ?? ""}
-                onChange={handleChange}
-                className="w-full min-h-[90px] rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-accent resize-none"
-                placeholder="Write the testimonial..."
-                required
-              />
-            </div>
-
-            {/* Submit */}
-            <Button
-              type="submit"
-              className="w-full"
-              disabled={submitting}
+          <div className="w-full">
+            <form
+              onSubmit={handleSubmit}
+              className="rounded-3xl border border-border bg-white/60 dark:bg-neutral-900/70 backdrop-blur-sm p-6 md:p-8 shadow-lg max-w-xl mx-auto transition-colors"
             >
-              {submitting ? "Adding..." : "Add Testimonial"}
-            </Button>
-          </form>
+              {/* header */}
+              <div className="flex items-center justify-between gap-4 mb-6">
+                <div>
+                  <h3 className="text-2xl font-serif font-semibold leading-tight text-black dark:text-white">
+                    Share Your Experience
+                  </h3>
+                  <p className="text-sm text-muted-foreground dark:text-neutral-300 mt-1">
+                    Your story helps others — short, sincere, and thankful.
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid gap-4">
+                {/* Name */}
+                <label className="block">
+                  <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Name</span>
+                  <input
+                    name="name"
+                    value={form.name ?? ""}
+                    onChange={handleChange}
+                    placeholder="Your name"
+                    required
+                    className="mt-2 block w-full rounded-lg border border-input bg-white/0 dark:bg-transparent px-4 py-3 text-sm placeholder:text-neutral-400 dark:placeholder:text-neutral-500 text-black dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-indigo-300 transition"
+                    aria-label="Name"
+                  />
+                </label>
+
+                {/* Photo + Avatar preview */}
+                <div>
+                  <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Photo (optional)</span>
+
+                  <div className="mt-2 flex items-center gap-4">
+                    {/* avatar preview */}
+                    <div className="w-16 h-16 rounded-full overflow-hidden bg-neutral-50 dark:bg-neutral-800 flex items-center justify-center border border-border">
+                      {form.src ? (
+                        <img src={form.src} alt={form.name || "avatar"} className="w-full h-full object-cover" />
+                      ) : (
+                        <div className="text-sm text-neutral-500 dark:text-neutral-400">
+                          {form.name ? form.name.charAt(0).toUpperCase() : "📷"}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* styled file input */}
+                    <div className="flex-1">
+                      <label
+                        htmlFor="testimonial-photo"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-input cursor-pointer text-sm hover:bg-neutral-50 hover:dark:bg-neutral-800 transition text-neutral-800 dark:text-neutral-100"
+                      >
+                        {/* icon */}
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-neutral-600 dark:text-neutral-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M16 8l-4-4m0 0L8 8m4-4v12" />
+                        </svg>
+
+                        <span className="text-sm">Choose photo</span>
+                      </label>
+                      <input
+                        id="testimonial-photo"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileChange}
+                        className="sr-only"
+                      />
+                      {/* <p className="text-xs mt-2 text-neutral-600 dark:text-neutral-400">
+                      JPG or PNG — keep it under 5MB for faster uploads.
+                    </p> */}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Testimonial */}
+                <label className="block">
+                  <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Testimonial</span>
+                  <textarea
+                    name="quote"
+                    value={form.quote ?? ""}
+                    onChange={handleChange}
+                    placeholder="Write a short review — what did you love?"
+                    required
+                    className="mt-2 block w-full min-h-[110px] rounded-lg border border-input bg-white/0 dark:bg-transparent px-4 py-3 text-sm placeholder:text-neutral-400 dark:placeholder:text-neutral-500 text-black dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-indigo-300 transition resize-none"
+                    aria-label="Testimonial"
+                  />
+                </label>
+
+                {/* small helper row */}
+                <div className="flex items-center justify-between text-xs text-neutral-600 dark:text-neutral-400">
+                  <div>
+                    {/* <span className="underline">guidelines</span> */}
+                  </div>
+                  <div>{form.quote ? `${form.quote.length}/500` : "0/500"}</div>
+                </div>
+
+                {/* Submit */}
+                <div>
+                  <button
+                    type="submit"
+                    disabled={submitting}
+                    aria-busy={submitting}
+                    className="w-full inline-flex items-center justify-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-shadow shadow-md
+             bg-black text-white hover:bg-neutral-900
+             dark:bg-white dark:text-black dark:hover:bg-neutral-200
+             disabled:opacity-60 disabled:cursor-not-allowed"
+                  >
+                    {submitting ? (
+                      <>
+                        <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" aria-hidden="true">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+                        </svg>
+                        <span>Adding...</span>
+                      </>
+                    ) : (
+                      "Add Testimonial"
+                    )}
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+
 
         </div>
       </section>
