@@ -216,19 +216,59 @@ export default function GalleryPage() {
           </div>
         ) : (
           // <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          //////////////////
+
+
+          // <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
+          //   {filteredPhotos.map((photo, index) => (
+          //     <div
+          //       key={photo.id}
+          //       className="group relative aspect-[4/5] overflow-hidden rounded-sm cursor-pointer"
+          //     >
+          //       <Image
+          //         src={photo.url}
+          //         alt="Photography"
+          //         fill
+          //         className="object-cover transition-transform duration-500 group-hover:scale-105"
+          //         unoptimized
+          //         priority={index === 0}  
+          //         loading={index === 0 ? "eager" : "lazy"}
+          //       />
+          //       <div className="absolute inset-0 bg-background/0 group-hover:bg-background/10 transition-colors duration-300" />
+          //     </div>
+          //   ))}
+
+          //   {!filteredPhotos.length && (
+          //     <p className="col-span-full text-center text-muted-foreground">
+          //       No images in this category yet.
+          //     </p>
+          //   )}
+          // </div>
+
+
+          /////////////////
+
           <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
-            {filteredPhotos.map((photo) => (
+            {filteredPhotos.map((photo, index) => (
               <div
                 key={photo.id}
-                className="group relative aspect-[4/5] overflow-hidden rounded-sm cursor-pointer"
+                className="relative w-full mb-4 overflow-hidden rounded-lg group"
+                style={{ breakInside: "avoid" }}
               >
-                <Image
-                  src={photo.url}
-                  alt="Photography"
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  unoptimized
-                />
+                <div className="relative aspect-[4/5]">
+                  <Image
+                    src={photo.url}
+                    alt="Photography"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    unoptimized  // ✔ good with Cloudinary
+                    priority={index === 0}
+                    loading={index === 0 ? "eager" : "lazy"}
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                </div>
+
                 <div className="absolute inset-0 bg-background/0 group-hover:bg-background/10 transition-colors duration-300" />
               </div>
             ))}
@@ -239,6 +279,7 @@ export default function GalleryPage() {
               </p>
             )}
           </div>
+
         )}
       </div>
     </div>

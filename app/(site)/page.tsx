@@ -255,19 +255,12 @@ export default function HomePage() {
               Hello, I&apos;m Abhishek Das
             </h2>
             <div className="space-y-6 text-lg leading-relaxed text-muted-foreground">
-              <p>
-                I&apos;m a photographer based in the heart of Paris, dedicated to
-                capturing the beauty of everyday moments and transforming them into
-                timeless memories. My work spans across various genres, from intimate
-                portraits to sweeping landscapes, vibrant street scenes to memorable
-                events.
+              <p>              
+                I&apos;m a Kerala-born photographer based in Paris.
+                I capture people and moments as they truly are — natural, warm, and full of life.
+                Every photograph I create is meant to feel real, honest, and unforgettable.
               </p>
-              <p>
-                With over a decade of experience, I&apos;ve developed a unique
-                perspective that blends technical precision with artistic vision.
-                Every photograph tells a story, and I&apos;m here to help you tell
-                yours.
-              </p>
+             
             </div>
             <div className="mt-12">
               <Button asChild variant="outline" size="lg">

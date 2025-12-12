@@ -13,7 +13,7 @@ import {
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { toast } from "sonner";
 
 
@@ -26,6 +26,7 @@ export function AdminShell({ children }: AdminShellProps) {
 
 
   const router = useRouter();
+  const pathname = usePathname();
 
 
   const handleLogout = async () => {
@@ -62,13 +63,7 @@ export function AdminShell({ children }: AdminShellProps) {
         <IconAdjustmentsHeart className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
       ),
     },
-    {
-      label: "Contacts",
-      href: "/author/contacts",
-      icon: (
-        <IconMessage className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
-      ),
-    },
+
   ];
 
   return (
@@ -87,17 +82,18 @@ export function AdminShell({ children }: AdminShellProps) {
                 <SidebarLink key={idx} link={link} />
               ))}
 
-
-              <button
-                type="button"
-                onClick={handleLogout}
-                className="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-neutral-200 dark:hover:bg-neutral-700 text-left mt-4"
-              >
-                <IconArrowLeft className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
-                <span className="text-sm text-neutral-800 dark:text-neutral-100">
-                  Logout
-                </span>
-              </button>
+              {pathname !== "/author/login" && (
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  className="cursor-pointer flex items-center gap-2 px-3 py-2 rounded-md hover:bg-neutral-200 dark:hover:bg-neutral-700 text-left mt-4"
+                >
+                  <IconArrowLeft className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+                  <span className="text-sm text-neutral-800 dark:text-neutral-100">
+                    Logout
+                  </span>
+                </button>
+              )}
             </div>
 
           </div>

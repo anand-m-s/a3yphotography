@@ -9,13 +9,13 @@ export default function AdminTabs() {
 
     const tabs = [
         {
-            title: "Categories",
-            value: "categories",
+            title: "Calender",
+            value: "Calender",
             content: (
                 <div className="w-full overflow-hidden relative h-full rounded-2xl p-10 text-xl md:text-4xl font-bold text-white 
                 bg-gradient-to-br from-purple-400 to-violet-700"
                 >
-                    <p>Manage Categories</p>
+                    <p>Calender</p>
                     {/* 🔧 Add Category Form will go here */}
 
 
@@ -23,11 +23,11 @@ export default function AdminTabs() {
             ),
         },
         {
-            title: "Add Images",
-            value: "add-images",
+            title: "Appointments",
+            value: "appointments",
             content: (
                 <div className="w-full overflow-hidden relative h-full rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-gradient-to-br from-indigo-500 to-blue-800">
-                    <p>Upload Images</p>
+                    <p>appointments</p>
                     {/* 📸 Upload Images Form will go here */}
 
 
@@ -36,11 +36,11 @@ export default function AdminTabs() {
             ),
         },
         {
-            title: "Testimonials",
-            value: "testimonials",
+            title: "PlannedShoots",
+            value: "PlannedShoots",
             content: (
                 <div className="w-full overflow-hidden relative h-full rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-gradient-to-br from-cyan-400 to-blue-600">
-                    <p>Manage Testimonials</p>
+                    <p>PlannedShoots</p>
                     {/* ⭐ Testimonials Form will go here */}
                 </div>
             ),
