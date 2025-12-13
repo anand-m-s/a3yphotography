@@ -236,7 +236,7 @@ export default function HomePage() {
             Creating Memories
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 text-balance">
-            Paris-based photographer specializing in authentic storytelling through the lens
+            Paris based photographer specializing in authentic storytelling through the lens
           </p>
           <Button asChild size="lg" className="font-medium">
             <Link href="/gallery">View Portfolio</Link>
@@ -255,12 +255,10 @@ export default function HomePage() {
               Hello, I&apos;m Abhishek Das
             </h2>
             <div className="space-y-6 text-lg leading-relaxed text-muted-foreground">
-              <p>              
-                I&apos;m a Kerala-born photographer based in Paris.
-                I capture people and moments as they truly are — natural, warm, and full of life.
-                Every photograph I create is meant to feel real, honest, and unforgettable.
+              <p>
+                I'm a photographer based in Paris. I capture people and moments as they truly are, natural, warm, and full of life. Every photograph I create is meant to feel real, honest, and unforgettable.
               </p>
-             
+
             </div>
             <div className="mt-12">
               <Button asChild variant="outline" size="lg">
@@ -369,7 +367,7 @@ export default function HomePage() {
 
                 {/* Photo + Avatar preview */}
                 <div>
-                  <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Photo (optional)</span>
+                  <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Photo</span>
 
                   <div className="mt-2 flex items-center gap-4">
                     {/* avatar preview */}

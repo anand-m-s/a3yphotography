@@ -63,7 +63,7 @@ export default function AboutPage() {
         </div>
         <div className="max-w-6xl mx-auto">
 
-          <div className="bg-muted/20 rounded-sm p-10 md:p-14 mb-24">
+          {/* <div className="bg-muted/20 rounded-sm p-10 md:p-14 mb-24">
             <div className="max-w-3xl mx-auto space-y-6 text-lg leading-relaxed text-muted-foreground text-center">
               <p>
                 A camera looks simple when we hold it in our hands. But it’s actually built from the earth—metal, glass, and tiny electronic parts shaped to capture something we can feel but never touch.
@@ -78,7 +78,7 @@ export default function AboutPage() {
                 From earth to light, it turns moments into memory.
               </p>
             </div>
-          </div>
+          </div> */}
 
 
 

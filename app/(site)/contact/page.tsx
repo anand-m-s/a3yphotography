@@ -17,7 +17,7 @@ export default function ContactPage() {
         <div className="text-center mb-16 animate-fadeIn">
           <h1 className="font-serif text-4xl md:text-6xl mb-6">Get in Touch</h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Whether it's portraits, events, or something uniquely yours — let's create something meaningful together.
+            Whether it's portraits, events, or something uniquely yours let's create something meaningful together.
           </p>
         </div>
 
@@ -29,26 +29,47 @@ export default function ContactPage() {
               <h2 className="font-serif text-2xl md:text-3xl mb-8">Let’s Connect</h2>
 
               <p className="text-lg text-muted-foreground mb-12 leading-relaxed">
-                I reply fastest on Instagram. Feel free to check out my work and message me anytime.
+                Feel free to check out my work and message me anytime.
               </p>
 
               {/* Email */}
+              {/* Email */}
               <div className="space-y-6 mb-12">
                 <div className="flex items-start gap-4 group">
-                  <div className="p-3 bg-accent/10 rounded-full group-hover:scale-110 transition-transform">
-                    <Mail className="h-5 w-5 text-accent" />
+                  <div className="p-3 rounded-full bg-gradient-to-br from-indigo-500/20 to-purple-500/20 group-hover:scale-110 transition-transform">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6 text-indigo-500 dark:text-indigo-300"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={1.8}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M4 4h16v16H4V4z"
+                      />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M22 6l-10 7L2 6"
+                      />
+                    </svg>
                   </div>
+
                   <div>
                     <p className="font-medium mb-1">Email</p>
                     <a
                       href="mailto:aby.7269@gmail.com"
-                      className="text-muted-foreground hover:text-accent transition-colors"
+                      className="text-muted-foreground  transition-colors"
                     >
                       aby.7269@gmail.com
                     </a>
                   </div>
                 </div>
               </div>
+
 
               {/* Social Icons */}
               <h3 className="font-serif text-xl mb-4">Follow My Work</h3>
@@ -82,33 +103,36 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* RIGHT SIDE — Insta Button */}
+            {/* RIGHT SIDE — WhatsApp Button */}
             <div
               className="
-                bg-card border border-border rounded-3xl p-10 shadow-xl 
-                backdrop-blur-md animate-fadeIn delay-100
-              "
+    bg-card border border-border rounded-3xl p-10 shadow-xl 
+    backdrop-blur-md animate-fadeIn delay-100
+  "
             >
-              <h2 className="font-serif text-3xl mb-6">Message Me on Instagram</h2>
+              <h2 className="font-serif text-3xl mb-6">Message Me on WhatsApp</h2>
 
-              {/* <p className="text-muted-foreground mb-8 text-lg leading-relaxed">
-                The easiest and fastest way to reach me.  
-                Click the button below and send a DM instantly.
-              </p> */}
-
-              {/* INSTAGRAM GRADIENT BORDER BUTTON */}
+              {/* WhatsApp Button */}
               <Link
-                href="https://www.instagram.com/aby7269/"
+                href="https://wa.me/+33759624141?text=Hi%20Abhishek,%20I%20visited%20your%20portfolio%20and%20would%20love%20to%20talk%20about%20a%20photoshoot!"
                 target="_blank"
                 className="
-                  relative inline-flex items-center gap-3 px-7 py-3 rounded-full 
-                  text-white font-medium shadow-md transition-all 
-                  hover:scale-105 active:scale-95
-                  bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500
-                "
+              relative inline-flex items-center gap-3 px-7 py-3 rounded-full 
+              text-white font-medium shadow-md transition-all 
+              hover:scale-105 active:scale-95
+              bg-gradient-to-r from-[#25D366] to-[#128C7E]"
+
               >
-                <Instagram className="h-5 w-5" />
-                Send a DM
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M20.52 3.48A11.84 11.84 0 0012 .33a11.68 11.68 0 00-11.7 11.7A11.42 11.42 0 003.53 20L2 24l4.22-1.48A11.72 11.72 0 0012 23.38a11.68 11.68 0 0011.7-11.7 11.84 11.84 0 00-3.18-8.2zM12 21a9.38 9.38 0 01-4.77-1.3l-.34-.2-2.5.88.85-2.44-.22-.36A9.39 9.39 0 1121.4 12 9.46 9.46 0 0112 21zm5.24-6.91c-.29-.15-1.72-.85-1.99-.95s-.46-.15-.66.15-.76.95-.93 1.15-.34.22-.63.07a7.71 7.71 0 01-2.27-1.4 8.53 8.53 0 01-1.58-2c-.16-.29 0-.45.11-.6.11-.15.29-.36.44-.52a2 2 0 00.29-.48.54.54 0 000-.52c-.07-.15-.66-1.59-.91-2.18s-.48-.5-.66-.5h-.57a1.09 1.09 0 00-.79.37A3.32 3.32 0 006 8.42a5.81 5.81 0 001 3.07 13.51 13.51 0 004.4 4.33 15.34 15.34 0 001.61.84 3.87 3.87 0 001.79.11 3 3 0 002-1.41 2.41 2.41 0 00.18-1.41c-.08-.14-.26-.22-.56-.37z" />
+                </svg>
+
+                WhatsApp
               </Link>
 
               <p className="text-sm text-muted-foreground mt-6">
@@ -141,3 +165,102 @@ function SocialIcon({ href, children }: { href: string; children: React.ReactNod
     </Link>
   )
 }
+
+
+
+// "use client"
+
+// import { Instagram, Globe, Send, MessageCircle } from "lucide-react"
+// import Image from "next/image"
+
+// export default function ContactPage() {
+//   const whatsappNumber = "+33759624141"
+//   const whatsappLink = `https://wa.me/${whatsappNumber}?text=Hi%20Abhishek,%20I%20saw%20your%20portfolio%20and%20would%20love%20to%20talk%20about%20a%20photoshoot!`
+
+//   return (
+//     <div className="min-h-screen pt-24 pb-20 bg-gradient-to-b from-background via-background/80 to-background/40 dark:from-black dark:via-neutral-900 dark:to-black">
+//       <div className="container mx-auto px-6 text-center">
+
+//         {/* Header */}
+//         <h1 className="font-serif text-4xl md:text-6xl mb-6">
+//           Let's Connect
+//         </h1>
+//         <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-16 leading-relaxed">
+//           Whether it's portraits, events, or something uniquely yours let's create something meaningful together.
+//         </p>
+
+//         {/* Social Buttons */}
+//         <div className="flex flex-col sm:flex-row justify-center items-center gap-10 mt-10">
+
+//           {/* Instagram */}
+//           <a
+//             href="https://instagram.com/aby7269"
+//             target="_blank"
+//             rel="noopener noreferrer"
+//             className="group flex flex-col items-center gap-4"
+//           >
+//             <div className="
+//               w-24 h-24 rounded-full p-1
+//               bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600
+//               hover:scale-105 transition-transform duration-300
+//             ">
+//               <div className="w-full h-full rounded-full bg-background flex items-center justify-center">
+//                 <Instagram className="h-10 w-10 text-foreground group-hover:text-pink-500 transition-colors" />
+//               </div>
+//             </div>
+//             <span className="text-sm text-muted-foreground group-hover:text-foreground transition">
+//               Instagram
+//             </span>
+//           </a>
+
+//           {/* WhatsApp */}
+//           <a
+//             href={whatsappLink}
+//             target="_blank"
+//             rel="noopener noreferrer"
+//             className="group flex flex-col items-center gap-4"
+//           >
+//             <div className="
+//               w-24 h-24 rounded-full bg-[#25D366]
+//               flex items-center justify-center
+//               hover:scale-105 hover:shadow-lg
+//               transition-all duration-300
+//             ">
+//               <MessageCircle className="h-10 w-10 text-white" />
+//             </div>
+//             <span className="text-sm text-muted-foreground group-hover:text-foreground transition">
+//               WhatsApp
+//             </span>
+//           </a>
+
+//           {/* Behance */}
+//           <a
+//             href="https://www.behance.net/aby7269"
+//             target="_blank"
+//             rel="noopener noreferrer"
+//             className="group flex flex-col items-center gap-4"
+//           >
+//             <div className="
+//               w-24 h-24 rounded-full bg-blue-600 flex items-center justify-center
+//               hover:scale-105 hover:shadow-lg transition-all duration-300
+//             ">
+//               <Globe className="h-10 w-10 text-white" />
+//             </div>
+//             <span className="text-sm text-muted-foreground group-hover:text-foreground transition">
+//               Behance
+//             </span>
+//           </a>
+
+//         </div>
+
+//         {/* Footer text */}
+//         <p className="text-sm text-muted-foreground mt-16 max-w-lg mx-auto">
+//           You’ll get the fastest reply on Instagram or WhatsApp.
+//           Looking forward to hearing from you ✨
+//         </p>
+
+//       </div>
+//     </div>
+//   )
+// }
+

@@ -209,7 +209,7 @@ export function Navigation() {
 
                     {/* BACKDROP */}
                     <div
-                        className="absolute inset-0 bg-black/50 backdrop-blur-sm animate-fade-in"
+                        className="absolute inset-0 bg-black/10 backdrop-blur-sm animate-fade-in"
                         onClick={() => setOpen(false)}
                     />
 
@@ -252,10 +252,10 @@ export function Navigation() {
                                         "flex items-center gap-3 px-4 py-3 rounded-xl transition-all",
                                         pathname === item.href
                                             ? "bg-black/10 dark:bg-white/10 text-black dark:text-white"
-                                            : "text-neutral-800 dark:text-neutral-300 hover:bg-black/5 dark:hover:bg-white/10"
+                                            : "text-neutral-950 dark:text-neutral-300 hover:bg-black/5 dark:hover:bg-white/10"
                                     )}
                                 >
-                                    <span className="text-neutral-700 dark:text-neutral-200">{item.icon}</span>
+                                    <span className="text-neutral-950 dark:text-neutral-200">{item.icon}</span>
                                     <span className="text-sm font-medium">{item.label}</span>
                                 </Link>
                             ))}

@@ -24,7 +24,7 @@ export async function connectDB() {
         dbName: "portfolio", // you can change the DB name
       })
      .then((mongoose) => {
-      console.log("🚀 MongoDB Connected:", mongoose.connection.host);
+      // console.log("🚀 MongoDB Connected:", mongoose.connection.host);
       return mongoose;
     });
   }

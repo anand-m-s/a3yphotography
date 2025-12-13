@@ -27,10 +27,44 @@ export default function AuthorLoginPage() {
     }
   }, []);
 
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   setLoading(true);
+  //   setError("");
+  //   try {
+  //     const res = await fetch("/api/admin/login", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({ username, password }),
+  //       cache: "no-store",
+  //     });
+  //     const json = await res.json();
+
+  //     console.log(res)
+  //     if (res.ok && json.success) {
+  //       // router.refresh();
+  //       // router.replace("/author");
+  //       router.refresh();               // revalidate server components
+
+  //       await new Promise((r) => setTimeout(r, 100));
+  //       router.replace("/author");
+  //       toast.success("login success")
+  //     } else {
+  //       setError(json.message || "Login failed");
+  //     }
+  //   } catch (err) {
+  //     setError("Network error");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError("");
+
     try {
       const res = await fetch("/api/admin/login", {
         method: "POST",
@@ -38,20 +72,21 @@ export default function AuthorLoginPage() {
         body: JSON.stringify({ username, password }),
         cache: "no-store",
       });
+
       const json = await res.json();
 
-      console.log(res)
       if (res.ok && json.success) {
-        // router.refresh();
-        // router.replace("/author");
-        router.refresh();               // revalidate server components
-        // small delay so the browser applies Set-Cookie
-        await new Promise((r) => setTimeout(r, 100));
-        router.replace("/author");
-        toast.success("login success")
-      } else {
-        setError(json.message || "Login failed");
+        
+
+        // Wait for cookie to settle
+        await new Promise((resolve) => setTimeout(resolve, 100));
+
+        // FORCE real reload to solve production issue
+        window.location.href = "/author";
+        return;
       }
+
+      setError(json.message || "Login failed");
     } catch (err) {
       setError("Network error");
     } finally {
@@ -59,29 +94,8 @@ export default function AuthorLoginPage() {
     }
   };
 
+
   return (
-    // <div className="min-h-screen flex items-center justify-center">
-    //   <form onSubmit={handleSubmit} className="w-full max-w-md p-6 rounded-md border bg-white">
-    //     <h2 className="text-xl font-semibold mb-4">Admin Login</h2>
-
-    //     {error && <p className="text-sm text-red-600 mb-2">{error}</p>}
-
-    //     <div className="mb-3">
-    //       <label className="block text-sm mb-1">Username</label>
-    //       <input className="w-full border px-3 py-2" value={username} onChange={(e) => setUsername(e.target.value)} />
-    //     </div>
-
-    //     <div className="mb-4">
-    //       <label className="block text-sm mb-1">Password</label>
-    //       <input type="password" className="w-full border px-3 py-2" value={password} onChange={(e) => setPassword(e.target.value)} />
-    //     </div>
-
-    //     <button type="submit" className="w-full py-2 bg-black text-white" disabled={loading}>
-    //       {loading ? "Signing in..." : "Sign in"}
-    //     </button>
-    //   </form>
-    // </div>
-
 
     <div className="min-h-screen flex items-center justify-center px-4">
       <form
