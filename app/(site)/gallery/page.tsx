@@ -29,9 +29,6 @@ export default function GalleryPage() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [currentIndex, setCurrentIndex] = useState<number | null>(null);
 
-  const [zoom, setZoom] = useState(1);
-  const [lastTap, setLastTap] = useState(0);
-
 
   // fetch categories + images from API
   useEffect(() => {
@@ -262,7 +259,8 @@ export default function GalleryPage() {
 
 
 
-          {/* MOBILE VERSION (with swipe + double tap zoom) */}
+
+          {/* MOBILE VERSION (NO zoom, NO double tap) */}
           <div
             className="
     flex md:hidden items-center justify-center 
@@ -273,32 +271,19 @@ export default function GalleryPage() {
             onTouchStart={(e) => {
               const t = e.touches[0];
               (e.currentTarget as any).startX = t.clientX;
-
-              // DOUBLE TAP DETECTION
-              const now = Date.now();
-              const timeSince = now - lastTap;
-
-              if (timeSince < 300) {
-                // Double tap → toggle zoom
-                setZoom((z) => (z === 1 ? 2 : 1));
-              }
-
-              setLastTap(now);
             }}
             onTouchEnd={(e) => {
               const t = e.changedTouches[0];
               const startX = (e.currentTarget as any).startX;
               const diff = t.clientX - startX;
 
-              // SWIPE navigation
-              if (zoom === 1) {
-                if (diff > 50) {
-                  e.stopPropagation();
-                  goPrev();
-                } else if (diff < -50) {
-                  e.stopPropagation();
-                  goNext();
-                }
+              // SWIPE navigation only
+              if (diff > 50) {
+                e.stopPropagation();
+                goPrev();
+              } else if (diff < -50) {
+                e.stopPropagation();
+                goNext();
               }
             }}
           >
@@ -318,21 +303,19 @@ export default function GalleryPage() {
               ›
             </button>
 
-            {/* IMAGE with Zoom */}
+            {/* Fullscreen Image */}
             <div className="relative w-screen h-screen max-w-screen max-h-screen overflow-hidden">
               <Image
                 src={selectedImage}
                 alt="Full view"
                 fill
-                className="object-contain transition-transform duration-300"
-                style={{
-                  transform: `scale(${zoom})`,
-                }}
+                className="object-contain"
                 unoptimized
                 sizes="100vw"
               />
             </div>
           </div>
+
 
 
 
@@ -347,7 +330,7 @@ export default function GalleryPage() {
             onClick={() => setLightboxOpen(false)}
           >
             <div
-              className="relative w-auto max-w-full mt-10"
+              className="relative w-auto max-w-full mt-10 "
               onClick={(e) => e.stopPropagation()}
             >
               <Image
@@ -355,7 +338,7 @@ export default function GalleryPage() {
                 alt="Full view"
                 width={2500}
                 height={2500}
-                className="w-auto h-auto max-w-full"
+                className="w-auto h-auto max-w-full rounded-2xl"
                 unoptimized
               />
             </div>

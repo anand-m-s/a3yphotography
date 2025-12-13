@@ -213,36 +213,76 @@ export default function HomePage() {
     }
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const y = window.scrollY;
+
+      document.documentElement.style.setProperty("--bg-parallax", `${y}px`);
+      document.documentElement.style.setProperty("--text-parallax", `${y * 0.15}px`);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY;
+      const offset = Math.min(y * 0.2, 60); // smooth float
+      document.documentElement.style.setProperty("--hero-float", `${offset}px`);
+    };
+
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+
+
 
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/gallery/Aby/_MG_8432.jpg"
-            alt="Hero photography"
-            fill
-            className="object-cover"
-            priority
-          />
-          {/* if you re-enable gradient, use theme here */}
-        </div>
+      <section className="relative h-screen overflow-hidden flex items-center justify-center">
 
-        <div className="relative z-10 container mx-auto px-6 text-center">
-          <h1 className="font-serif text-5xl md:text-5xl lg:text-6xl mb-6 text-balance">
-            Capturing Moments,
-            <br />
-            Creating Memories
+        {/* BACKGROUND LAYER — Slow Parallax */}
+        <div
+          className="absolute inset-0 bg-center bg-cover"
+          style={{
+            backgroundImage: `url('/gallery/Aby/_MG_8432.jpg')`,
+            transform: "translateY(calc(var(--bg-parallax, 0px) * 0.4))",
+            transition: "transform 0.1s linear",
+          }}
+        />
+
+        {/* MID-LAYER GRADIENT */}
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/60 pointer-events-none"
+          style={{
+            transform: "translateY(calc(var(--bg-parallax, 0px) * 0.2))",
+          }}
+        />
+
+        {/* FOREGROUND TEXT — Fast Parallax */}
+        <div
+          className="relative z-10 container mx-auto px-6 text-center"
+          style={{
+            transform: "translateY(calc(var(--text-parallax, 0px)))",
+          }}
+        >
+          <h1 className="font-serif text-5xl md:text-6xl mb-6">
+            Capturing Moments,<br />Creating Memories
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 text-balance">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
             Paris based photographer specializing in authentic storytelling through the lens
           </p>
-          <Button asChild size="lg" className="font-medium">
+          <Button asChild size="lg">
             <Link href="/gallery">View Portfolio</Link>
           </Button>
         </div>
       </section>
+
+
 
       {/* Introduction Section */}
       <section className="py-16 md:py-12">
@@ -268,6 +308,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
 
       {/* Featured Work Preview */}
 

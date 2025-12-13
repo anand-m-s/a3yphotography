@@ -19,6 +19,12 @@ const playfair = Playfair_Display({
 export const metadata: Metadata = {
   title: "Abhishek Das | Photographer",
   description: "Paris-based photographer specializing in portraits, landscapes, street photography, and events",
+  manifest: "/manifest.json",
+  icons: {
+    icon: "/icons/icon-192.png",
+    apple: "/icons/icon-512.png",
+  },
+  themeColor: "#ffffff",
 
 
 }
