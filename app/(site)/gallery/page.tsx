@@ -173,6 +173,36 @@ export default function GalleryPage() {
               />
             ))}
           </div>
+
+      //     //     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      //     //       {Array.from({ length: 6 }).map((_, i) => (
+      //     //         <div
+      //     //           key={i}
+      //     //           className="
+      //     //   aspect-[4/5] rounded-sm 
+      //     //   bg-gradient-to-br from-neutral-300/40 to-neutral-400/40 
+      //     //   dark:from-neutral-700/40 dark:to-neutral-600/40
+      //     //   animate-smoothPulse
+      //     // "
+      //     //         />
+      //     //       ))}
+      //     //     </div>
+
+
+      //     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      //       {Array.from({ length: 6 }).map((_, i) => (
+      //         <div
+      //           key={i}
+      //           className="
+      //   aspect-[4/5] rounded-sm overflow-hidden relative bg-neutral-300/30 dark:bg-neutral-700/30
+      // "
+      //         >
+      //           <div className="absolute inset-0 animate-softGlow bg-gradient-to-b from-neutral-300/40 via-neutral-200/20 to-neutral-300/40 dark:from-neutral-700/40 dark:via-neutral-600/20 dark:to-neutral-700/40" />
+      //         </div>
+      //       ))}
+      //     </div>
+
+
         ) : (
           <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
             {filteredPhotos.map((photo, index) => (

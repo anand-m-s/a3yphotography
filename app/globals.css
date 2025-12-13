@@ -119,6 +119,10 @@
   }
 }
 
+
+
+
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -150,4 +154,32 @@
   50% { text-shadow: 0 0 14px rgba(255,255,255,0.45); }
   100% { text-shadow: 0 0 6px rgba(255,255,255,0.25); }
 }
+
+
+
+/* skelton on gallery page  */
+
+/* 
+@keyframes smoothPulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+.animate-smoothPulse {
+  animation: smoothPulse 1.6s ease-in-out infinite;
+}
+
+
+
+@keyframes softGlow {
+  0% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.02); }
+  100% { opacity: 0.6; transform: scale(1); }
+}
+
+.animate-softGlow {
+  animation: softGlow 2.4s ease-in-out infinite;
+} */
+
 
