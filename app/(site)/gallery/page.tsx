@@ -31,8 +31,8 @@ export default function GalleryPage() {
 
 
 
-  
-  
+
+
 
 
   // fetch categories + images from API
@@ -354,7 +354,7 @@ export default function GalleryPage() {
 
 
 
-          {/* DESKTOP VERSION (scrollable tall image) */}          
+          {/* DESKTOP VERSION (scrollable tall image) */}
           <div
             className="
                 hidden md:flex 
@@ -367,7 +367,7 @@ export default function GalleryPage() {
             {/* LEFT ARROW */}
             <button
               onClick={(e) => { e.stopPropagation(); goPrev(); }}
-              className="absolute left-6 text-white/70 hover:text-white text-5xl z-[10000]"
+              className="cursor-pointer absolute left-6 text-white/70 hover:text-white text-5xl z-[10000]"
             >
               ‹
             </button>
@@ -375,7 +375,7 @@ export default function GalleryPage() {
             {/* RIGHT ARROW */}
             <button
               onClick={(e) => { e.stopPropagation(); goNext(); }}
-              className="absolute right-6 text-white/70 hover:text-white text-5xl z-[10000]"
+              className="cursor-pointer absolute right-6 text-white/70 hover:text-white text-5xl z-[10000]"
             >
               ›
             </button>

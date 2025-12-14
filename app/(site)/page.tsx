@@ -245,42 +245,36 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="relative h-screen overflow-hidden flex items-center justify-center">
 
-        {/* BACKGROUND LAYER — Slow Parallax */}
+        {/* BACKGROUND IMAGE */}
         <div
           className="absolute inset-0 bg-center bg-cover"
           style={{
             backgroundImage: `url('/gallery/Aby/_MG_8432.jpg')`,
-            transform: "translateY(calc(var(--bg-parallax, 0px) * 0.4))",
-            transition: "transform 0.1s linear",
           }}
         />
 
-        {/* MID-LAYER GRADIENT */}
-        <div
-          className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/60 pointer-events-none"
-          style={{
-            transform: "translateY(calc(var(--bg-parallax, 0px) * 0.2))",
-          }}
-        />
+        {/* GRADIENT OVERLAY */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/60 pointer-events-none" />
 
-        {/* FOREGROUND TEXT — Fast Parallax */}
-        <div
-          className="relative z-10 container mx-auto px-6 text-center"
-          style={{
-            transform: "translateY(calc(var(--text-parallax, 0px)))",
-          }}
-        >
-          <h1 className="font-serif text-5xl md:text-6xl mb-6">
+        {/* CONTENT */}
+        {/* <div className="relative z-10 container mx-auto px-6 text-center"> */}
+        <div className="relative z-10 container mx-auto px-6 text-center animate-fadeIn">
+
+          <h1 className="font-serif text-5xl md:text-6xl mb-6 text-balance">
             Capturing Moments,<br />Creating Memories
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
+
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8 text-balance">
             Paris based photographer specializing in authentic storytelling through the lens
           </p>
+
           <Button asChild size="lg">
             <Link href="/gallery">View Portfolio</Link>
           </Button>
         </div>
+
       </section>
+
 
 
 
