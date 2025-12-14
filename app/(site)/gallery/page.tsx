@@ -30,6 +30,11 @@ export default function GalleryPage() {
   const [currentIndex, setCurrentIndex] = useState<number | null>(null);
 
 
+
+  
+  
+
+
   // fetch categories + images from API
   useEffect(() => {
     const fetchGallery = async () => {
@@ -174,33 +179,33 @@ export default function GalleryPage() {
             ))}
           </div>
 
-      //     //     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      //     //       {Array.from({ length: 6 }).map((_, i) => (
-      //     //         <div
-      //     //           key={i}
-      //     //           className="
-      //     //   aspect-[4/5] rounded-sm 
-      //     //   bg-gradient-to-br from-neutral-300/40 to-neutral-400/40 
-      //     //   dark:from-neutral-700/40 dark:to-neutral-600/40
-      //     //   animate-smoothPulse
-      //     // "
-      //     //         />
-      //     //       ))}
-      //     //     </div>
+          //     //     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          //     //       {Array.from({ length: 6 }).map((_, i) => (
+          //     //         <div
+          //     //           key={i}
+          //     //           className="
+          //     //   aspect-[4/5] rounded-sm 
+          //     //   bg-gradient-to-br from-neutral-300/40 to-neutral-400/40 
+          //     //   dark:from-neutral-700/40 dark:to-neutral-600/40
+          //     //   animate-smoothPulse
+          //     // "
+          //     //         />
+          //     //       ))}
+          //     //     </div>
 
 
-      //     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      //       {Array.from({ length: 6 }).map((_, i) => (
-      //         <div
-      //           key={i}
-      //           className="
-      //   aspect-[4/5] rounded-sm overflow-hidden relative bg-neutral-300/30 dark:bg-neutral-700/30
-      // "
-      //         >
-      //           <div className="absolute inset-0 animate-softGlow bg-gradient-to-b from-neutral-300/40 via-neutral-200/20 to-neutral-300/40 dark:from-neutral-700/40 dark:via-neutral-600/20 dark:to-neutral-700/40" />
-      //         </div>
-      //       ))}
-      //     </div>
+          //     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          //       {Array.from({ length: 6 }).map((_, i) => (
+          //         <div
+          //           key={i}
+          //           className="
+          //   aspect-[4/5] rounded-sm overflow-hidden relative bg-neutral-300/30 dark:bg-neutral-700/30
+          // "
+          //         >
+          //           <div className="absolute inset-0 animate-softGlow bg-gradient-to-b from-neutral-300/40 via-neutral-200/20 to-neutral-300/40 dark:from-neutral-700/40 dark:via-neutral-600/20 dark:to-neutral-700/40" />
+          //         </div>
+          //       ))}
+          //     </div>
 
 
         ) : (
@@ -349,36 +354,45 @@ export default function GalleryPage() {
 
 
 
-          {/* DESKTOP VERSION (scrollable tall image) */}
+          {/* DESKTOP VERSION (scrollable tall image) */}          
           <div
             className="
                 hidden md:flex 
-                overflow-y-auto h-full w-full 
-                items-start justify-center 
-                p-8
+                items-center justify-center 
+                w-full h-full select-none
+                p-6 animate-fadeIn
               "
             onClick={() => setLightboxOpen(false)}
           >
-            <div
-              className="relative w-auto max-w-full mt-10 "
-              onClick={(e) => e.stopPropagation()}
+            {/* LEFT ARROW */}
+            <button
+              onClick={(e) => { e.stopPropagation(); goPrev(); }}
+              className="absolute left-6 text-white/70 hover:text-white text-5xl z-[10000]"
             >
+              ‹
+            </button>
+
+            {/* RIGHT ARROW */}
+            <button
+              onClick={(e) => { e.stopPropagation(); goNext(); }}
+              className="absolute right-6 text-white/70 hover:text-white text-5xl z-[10000]"
+            >
+              ›
+            </button>
+
+            {/* FULLSCREEN IMAGE */}
+            <div className="relative w-full h-full max-w-[90vw] max-h-[90vh]">
               <Image
                 src={selectedImage}
                 alt="Full view"
-                width={2500}
-                height={2500}
-                className="w-auto h-auto max-w-full rounded-2xl"
+                fill
+                className="object-contain rounded-xl"
                 unoptimized
+                sizes="100vw"
               />
             </div>
-
-            {/* OPTIONAL: Desktop arrows */}
-            {/* 
-        <button>‹</button>
-        <button>›</button>
-      */}
           </div>
+
 
         </div>
       )}
