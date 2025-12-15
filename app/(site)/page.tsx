@@ -247,14 +247,15 @@ export default function HomePage() {
 
         {/* BACKGROUND IMAGE */}
         <div
-          className="absolute inset-0 bg-center bg-cover"
+          className="absolute inset-0 bg-center bg-cover bg-black animate-heroImage"
           style={{
             backgroundImage: `url('/gallery/Aby/_MG_8432.jpg')`,
           }}
         />
 
         {/* GRADIENT OVERLAY */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/60 pointer-events-none" />
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/60 pointer-events-none" />
 
         {/* CONTENT */}
         {/* <div className="relative z-10 container mx-auto px-6 text-center"> */}

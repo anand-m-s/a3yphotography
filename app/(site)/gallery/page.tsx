@@ -209,9 +209,12 @@ export default function GalleryPage() {
 
 
         ) : (
-          <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
+          <div
+             data-cursor="gallery"
+           className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
             {filteredPhotos.map((photo, index) => (
               <div
+                
                 key={photo.id}
                 className="cursor-pointer relative w-full mb-4 overflow-hidden rounded-lg group"
                 style={{ breakInside: "avoid" }}

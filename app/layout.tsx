@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { SonnerProvider } from "@/components/sonner-provider"
 import { ConfirmProvider } from "@/components/ui/confirm-dialog";
 
+
 import "./globals.css"
 
 
@@ -37,6 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`font-sans ${GeistSans.variable} ${playfair.variable} antialiased`}>
+        
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           <ConfirmProvider>
             <main>{children}</main>
