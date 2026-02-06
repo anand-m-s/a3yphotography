@@ -274,31 +274,51 @@ export default function GalleryPage() {
                         w-full h-full select-none
                         p-4 animate-fadeIn "
             onClick={() => setLightboxOpen(false)}
-            onTouchStart={(e) => {
-              if (e.touches.length !== 1) return; // 👈 ignore multi-touch
 
-              const t = e.touches[0];
-              (e.currentTarget as any).startX = t.clientX;
+
+            onTouchStart={(e) => {
+              const el = e.currentTarget as any;
+
+              el.isPinching = e.touches.length > 1;
+
+              if (e.touches.length !== 1) return;
+
+              el.startX = e.touches[0].clientX;
             }}
 
-            onTouchEnd={(e) => {
-              if (e.changedTouches.length !== 1) return; // 👈 ignore pinch
+            onTouchMove={(e) => {
+              const el = e.currentTarget as any;
 
-              const t = e.changedTouches[0];
-              const startX = (e.currentTarget as any).startX;
-
-              if (startX == null) return;
-
-              const diff = t.clientX - startX;
-
-              if (diff > 50) {
-                e.stopPropagation();
-                goPrev();
-              } else if (diff < -50) {
-                e.stopPropagation();
-                goNext();
+              if (e.touches.length > 1) {
+                el.isPinching = true; // 👈 mark pinch immediately
               }
             }}
+
+
+            onTouchEnd={(e) => {
+              const el = e.currentTarget as any;
+
+              if (el.isPinching) {
+                el.startX = null;
+                el.isPinching = false;
+                return; // 👈 completely ignore swipe
+              }
+
+              if (e.changedTouches.length !== 1) return;
+
+              const startX = el.startX;
+              if (startX == null) return;
+
+              const diff = e.changedTouches[0].clientX - startX;
+
+              if (Math.abs(diff) > 50) {
+                e.stopPropagation();
+                diff > 0 ? goPrev() : goNext();
+              }
+
+              el.startX = null;
+            }}
+
 
           >
             {/* Fullscreen Image */}
@@ -330,7 +350,7 @@ export default function GalleryPage() {
             {/* LEFT ARROW */}
             <button
               onClick={(e) => { e.stopPropagation(); goPrev(); }}
-              className="cursor-pointer absolute left-6 text-white/70 hover:text-white text-5xl z-[10000]"
+              className="cursor-pointer absolute left-6 text-white/70 hover:text-white text-9xl z-[10000]"
             >
               ‹
             </button>
@@ -338,7 +358,7 @@ export default function GalleryPage() {
             {/* RIGHT ARROW */}
             <button
               onClick={(e) => { e.stopPropagation(); goNext(); }}
-              className="cursor-pointer absolute right-6 text-white/70 hover:text-white text-5xl z-[10000]"
+              className="cursor-pointer absolute right-6 text-white/70 hover:text-white text-9xl z-[10000]"
             >
               ›
             </button>

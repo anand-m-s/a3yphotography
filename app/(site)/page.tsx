@@ -383,8 +383,8 @@ export default function HomePage() {
 
 
 
-      <section className="md:py-16">       
-        <div className="container mx-auto px-7">     
+      <section className="md:py-24">       
+        <div className="container mx-auto px-1">     
            <p className="text-center uppercase tracking-widest text-muted-foreground md:mt-0 mt-20">
               Testimonials
             </p>     
@@ -404,7 +404,7 @@ export default function HomePage() {
       </section>
 
 
-      <section className="py-24 md:py-16 bg-muted/45 rounded-4xl">
+      <section className="py-24 md:py-24 bg-muted/45 rounded-4xl">
         <div className="container mx-auto px-3">
              <div className="w-full">
             <form
