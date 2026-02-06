@@ -298,12 +298,12 @@ export default function HomePage() {
 
 
       {/* Introduction Section */}
-      <section className="py-16 md:py-12">
+      <section className="py-16 md:py-24 shadow-2xl">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
-            <p className="text-sm uppercase tracking-widest text-muted-foreground mb-4">
+            {/* <p className="text-sm uppercase tracking-widest text-muted-foreground mb-4">
               Introduction
-            </p>
+            </p> */}
             <h2 className="font-serif text-3xl md:text-5xl mb-8 text-balance">
               Hello, I&apos;m Abhishek Das
             </h2>
@@ -326,12 +326,12 @@ export default function HomePage() {
       {/* Featured Work Preview */}
 
 
-      <section className="py-24 md:py-32 bg-muted/45 rounded-4xl">
+      <section className="py-24 md:py-24 bg-muted/45 rounded-4xl">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <p className="text-sm uppercase tracking-widest text-muted-foreground mb-4">
+            {/* <p className="text-sm uppercase tracking-widest text-muted-foreground mb-4">
               Portfolio
-            </p>
+            </p> */}
             <h2 className="font-serif text-3xl md:text-5xl mb-6">
               Featured Work
             </h2>
@@ -383,9 +383,11 @@ export default function HomePage() {
 
 
 
-      <section className="md:py-24">
-        <div className="container mx-auto px-6 grid gap-10 lg:grid-cols-[3fr,2fr] items-start">
-          {/* LEFT: animated testimonials */}
+      <section className="md:py-16">       
+        <div className="container mx-auto px-7">     
+           <p className="text-center uppercase tracking-widest text-muted-foreground md:mt-0 mt-20">
+              Testimonials
+            </p>     
           <div>
             {loadingTestimonials ? (
               <p className="text-sm text-muted-foreground">Loading testimonials...</p>
@@ -398,10 +400,13 @@ export default function HomePage() {
 
             )}
           </div>
+        </div>
+      </section>
 
 
-
-          <div className="w-full">
+      <section className="py-24 md:py-16 bg-muted/45 rounded-4xl">
+        <div className="container mx-auto px-3">
+             <div className="w-full">
             <form
               onSubmit={handleSubmit}
               className="rounded-3xl border border-border bg-white/60 dark:bg-neutral-900/70 backdrop-blur-sm p-6 md:p-8 shadow-lg max-w-xl mx-auto transition-colors"
@@ -527,10 +532,8 @@ export default function HomePage() {
           </div>
 
 
-
         </div>
       </section>
-
 
       {/* Call to Action */}
       <section className="py-24 md:py-32">

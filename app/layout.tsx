@@ -18,8 +18,8 @@ const playfair = Playfair_Display({
 })
 
 export const metadata: Metadata = {
-  title: "Abhishek Das | Photographer",
-  description: "Paris-based photographer specializing in portraits, landscapes, street photography, and events",
+  title: "A3Y Photography | Abhishek Das – Paris Photographer",
+  description: "A3Y Photography (a3yphotography) by Abhishek Das. Paris-based photographer specializing in portraits, landscapes, street photography, and events.",
   manifest: "/manifest.json",
   icons: {
     icon: "/icons/icon-192.png",
@@ -42,7 +42,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`font-sans ${GeistSans.variable} ${playfair.variable} antialiased`}>
-        
+
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <ConfirmProvider>
             <main>{children}</main>

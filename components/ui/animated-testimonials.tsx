@@ -9,9 +9,10 @@ type Testimonial = {
   quote: string;
   name: string;
   src: string;
-  // optional, in case your data still has it, but we don't use it
   designation?: string;
 };
+
+const swipeThreshold = 80; // px
 
 export const AnimatedTestimonials = ({
   testimonials,
@@ -21,6 +22,18 @@ export const AnimatedTestimonials = ({
   autoplay?: boolean;
 }) => {
   const [active, setActive] = useState(0);
+
+  const handleDragEnd = (
+    _: MouseEvent | TouchEvent | PointerEvent,
+    info: { offset: { x: number } }
+  ) => {
+    if (info.offset.x < -swipeThreshold) {
+      handleNext();
+    } else if (info.offset.x > swipeThreshold) {
+      handlePrev();
+    }
+  };
+
 
   const handleNext = useCallback(() => {
     setActive((prev) => (prev + 1) % testimonials.length);
@@ -52,8 +65,42 @@ export const AnimatedTestimonials = ({
           <div className="relative h-80 w-full">
             <AnimatePresence>
               {testimonials.map((testimonial, index) => (
+                // <motion.div
+                //   key={index}
+                //   initial={{
+                //     opacity: 0,
+                //     scale: 0.9,
+                //     z: -100,
+                //     rotate: getRotateForIndex(index),
+                //   }}
+                //   animate={{
+                //     opacity: isActive(index) ? 1 : 0.7,
+                //     scale: isActive(index) ? 1 : 0.95,
+                //     z: isActive(index) ? 0 : -100,
+                //     rotate: isActive(index) ? 0 : getRotateForIndex(index),
+                //     zIndex: isActive(index)
+                //       ? 40
+                //       : testimonials.length + 2 - index,
+                //     y: isActive(index) ? [0, -80, 0] : 0,
+                //   }}
+                //   exit={{
+                //     opacity: 0,
+                //     scale: 0.9,
+                //     z: 100,
+                //     rotate: getRotateForIndex(index),
+                //   }}
+                //   transition={{
+                //     duration: 0.4,
+                //     ease: "easeInOut",
+                //   }}
+                //   className="absolute inset-0 origin-bottom"
+                // >
                 <motion.div
                   key={index}
+                  drag={isActive(index) ? "x" : false}   // 👈 only active card draggable
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.2}
+                  onDragEnd={handleDragEnd}
                   initial={{
                     opacity: 0,
                     scale: 0.9,
@@ -80,8 +127,9 @@ export const AnimatedTestimonials = ({
                     duration: 0.4,
                     ease: "easeInOut",
                   }}
-                  className="absolute inset-0 origin-bottom"
+                  className="absolute inset-0 origin-bottom touch-pan-y"
                 >
+
                   <Image
                     src={testimonial.src}
                     alt={testimonial.name}
@@ -116,6 +164,7 @@ export const AnimatedTestimonials = ({
               ease: "easeInOut",
             }}
           >
+
             <h3 className="text-2xl font-bold text-black dark:text-white">
               {testimonials[active].name}
             </h3>
@@ -144,21 +193,30 @@ export const AnimatedTestimonials = ({
                   className="inline-block"
                 >
                   {word}&nbsp;
+
+
                 </motion.span>
               ))}
             </motion.p>
           </motion.div>
 
+
+          <p className="mt-4 text-xs text-muted-foreground md:hidden">
+            Swipe left or right to see more
+          </p>
+
+
+
           <div className="flex gap-4 pt-12 md:pt-0">
             <button
               onClick={handlePrev}
-              className="group/button flex h-7 w-7 items-center justify-center rounded-full bg-gray-100 dark:bg-neutral-800"
+              className="cursor-pointer group/button flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 dark:bg-neutral-800"
             >
               <IconArrowLeft className="h-5 w-5 text-black transition-transform duration-300 group-hover/button:rotate-12 dark:text-neutral-400" />
             </button>
             <button
               onClick={handleNext}
-              className="group/button flex h-7 w-7 items-center justify-center rounded-full bg-gray-100 dark:bg-neutral-800"
+              className="cursor-pointer group/button flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 dark:bg-neutral-800"
             >
               <IconArrowRight className="h-5 w-5 text-black transition-transform duration-300 group-hover/button:-rotate-12 dark:text-neutral-400" />
             </button>
