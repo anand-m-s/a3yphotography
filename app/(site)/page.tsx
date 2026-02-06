@@ -1,34 +1,47 @@
-"use client"
+"use client";
 
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { FocusCards } from "@/components/ui/focus-cards"
 import { useTheme } from "next-themes"
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials"
 import { useState, useEffect, type FormEvent, type ChangeEvent } from "react"
 import { toast } from "sonner"
 
+
+
+
+function Shimmer() {
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      <div className="h-full w-1/2 -translate-x-full animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+    </div>
+  );
+}
+
+
+function GalleryCardSkeleton() {
+  return (
+    <div className="relative overflow-hidden rounded-sm bg-muted">
+      <div
+        className="relative w-full bg-muted-foreground/10"
+        style={{ aspectRatio: "3 / 4" }}
+      >
+        <Shimmer />
+      </div>
+
+      <div className="absolute bottom-0 left-0 right-0 p-6">
+        <div className="relative h-6 w-2/3 rounded bg-muted-foreground/15 overflow-hidden">
+          <Shimmer />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
 export default function HomePage() {
   const { theme } = useTheme()
-
-
-
-
-  // const cards = [
-  //   {
-  //     title: "Nature",
-  //     src: "/gallery/Portraits/Montmartre - Paris/IMG_9087-5ps.jpg",
-  //   },
-  //   {
-  //     title: "Indoor",
-  //     src: "/gallery/Portraits/Montmartre - Paris/IMG_3212-1-ps.jpg",
-  //   },
-  //   {
-  //     title: "Street",
-  //     src: "/gallery/Portraits/Montmartre - Paris/IMG_3446-2.jpg",
-  //   },
-  // ]
 
   type TestimonialDoc = {
     _id: string
@@ -48,19 +61,24 @@ export default function HomePage() {
   const [testimonialsData, setTestimonialsData] = useState<TestimonialDoc[]>([])
   const [loadingTestimonials, setLoadingTestimonials] = useState(true)
   const [featured, setFeatured] = useState<FeaturedCategory[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [expectedCount, setExpectedCount] = useState(5);
 
 
   useEffect(() => {
     async function fetchFeatured() {
       const res = await fetch("/api/featured");
       const json = await res.json();
-      setFeatured(json.data || []);
+
+      const data = json.data || [];
+
+      setExpectedCount(data.length); // 👈 key line
+      setFeatured(data);
+      setIsLoading(false);
     }
 
     fetchFeatured();
   }, []);
-
-
 
 
 
@@ -319,28 +337,41 @@ export default function HomePage() {
             </h2>
           </div>
 
+
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            {featured.map((cat) => (
-              <Link
-                key={cat._id}
-                href={`/gallery#${cat.slug}`}
-                className="group relative aspect-[3/4] overflow-hidden rounded-sm"
-              >
-                <Image
-                  src={cat.imageUrl}
-                  alt={cat.name}
-                  fill
-                  unoptimized
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <h3 className="font-serif text-2xl text-foreground">
-                    {cat.name}
-                  </h3>
-                </div>
-              </Link>
-            ))}
+            {isLoading
+              ? Array.from({ length: expectedCount }).map((_, i) => (
+                <GalleryCardSkeleton key={i} />
+              ))
+              : featured.map((cat) => (
+                <Link
+                  key={cat._id}
+                  href={`/gallery#${cat.slug}`}
+                  className="group relative overflow-hidden rounded-sm"
+                >
+                  <div className="relative w-full" style={{ aspectRatio: "3 / 4" }}>
+                    <Image
+                      src={cat.imageUrl}
+                      alt={cat.name}
+                      fill
+                      sizes="(max-width: 768px) 100vw,
+                     (max-width: 1024px) 50vw,
+                     25vw"
+                      className="object-cover"
+                    />
+                  </div>
+
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <h3 className="font-serif text-2xl text-foreground">
+                      {cat.name}
+                    </h3>
+                  </div>
+                </Link>
+              ))}
           </div>
+
+
 
           <div className="text-center mt-3.5">
             <Button asChild size="lg">
@@ -349,6 +380,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
 
 
       <section className="md:py-24">

@@ -173,6 +173,13 @@
 
 /* skelton on gallery page  */
 
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
 /* 
 @keyframes smoothPulse {
   0% { opacity: 0.6; }

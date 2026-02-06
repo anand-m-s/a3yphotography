@@ -25,10 +25,14 @@ export const metadata: Metadata = {
     icon: "/icons/icon-192.png",
     apple: "/icons/icon-512.png",
   },
-  themeColor: "#ffffff",
+
 
 
 }
+export const viewport = {
+  themeColor: "#000000",
+};
+
 
 export default function RootLayout({
   children,
@@ -39,7 +43,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`font-sans ${GeistSans.variable} ${playfair.variable} antialiased`}>
         
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <ConfirmProvider>
             <main>{children}</main>
           </ConfirmProvider>

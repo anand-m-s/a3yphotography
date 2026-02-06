@@ -21,12 +21,14 @@ import type { NextConfig } from "next";
 import withPWA from "next-pwa";
 
 const nextConfig: NextConfig = {
-  images: {
-    domains: ["res.cloudinary.com"],
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+images: {
+  remotePatterns: [
+    {
+      protocol: "https",
+      hostname: "res.cloudinary.com",
+    },
+  ],
+},
   typescript: {
     ignoreBuildErrors: true,
   },
