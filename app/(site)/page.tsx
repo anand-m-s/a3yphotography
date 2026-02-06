@@ -259,7 +259,7 @@ export default function HomePage() {
 
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-dvh">
       {/* Hero Section */}
       <section className="relative h-screen overflow-hidden flex items-center justify-center">
 

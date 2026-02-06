@@ -207,7 +207,7 @@ export const AnimatedTestimonials = ({
 
 
 
-          <div className="flex gap-4 pt-12 md:pt-0">
+          <div className="hidden md:flex gap-4 pt-12 ">
             <button
               onClick={handlePrev}
               className="cursor-pointer group/button flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 dark:bg-neutral-800"

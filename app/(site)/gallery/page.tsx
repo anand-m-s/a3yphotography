@@ -140,7 +140,7 @@ export default function GalleryPage() {
   }, [images, activeCategory]);
 
   return (
-    <div className="min-h-screen pt-24 pb-16">
+    <div className="min-h-dvh pt-24 pb-16">
       <div className="container mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-10">
@@ -179,42 +179,13 @@ export default function GalleryPage() {
             ))}
           </div>
 
-          //     //     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          //     //       {Array.from({ length: 6 }).map((_, i) => (
-          //     //         <div
-          //     //           key={i}
-          //     //           className="
-          //     //   aspect-[4/5] rounded-sm 
-          //     //   bg-gradient-to-br from-neutral-300/40 to-neutral-400/40 
-          //     //   dark:from-neutral-700/40 dark:to-neutral-600/40
-          //     //   animate-smoothPulse
-          //     // "
-          //     //         />
-          //     //       ))}
-          //     //     </div>
-
-
-          //     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          //       {Array.from({ length: 6 }).map((_, i) => (
-          //         <div
-          //           key={i}
-          //           className="
-          //   aspect-[4/5] rounded-sm overflow-hidden relative bg-neutral-300/30 dark:bg-neutral-700/30
-          // "
-          //         >
-          //           <div className="absolute inset-0 animate-softGlow bg-gradient-to-b from-neutral-300/40 via-neutral-200/20 to-neutral-300/40 dark:from-neutral-700/40 dark:via-neutral-600/20 dark:to-neutral-700/40" />
-          //         </div>
-          //       ))}
-          //     </div>
-
-
         ) : (
           <div
-             data-cursor="gallery"
-           className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
+            data-cursor="gallery"
+            className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
             {filteredPhotos.map((photo, index) => (
               <div
-                
+
                 key={photo.id}
                 className="cursor-pointer relative w-full mb-4 overflow-hidden rounded-lg group"
                 style={{ breakInside: "avoid" }}
@@ -231,7 +202,6 @@ export default function GalleryPage() {
                     alt="Photography"
                     fill
                     className=" object-cover transition-transform duration-500 group-hover:scale-105"
-                    unoptimized  // ✔ good with Cloudinary
                     priority={index === 0}
                     loading={index === 0 ? "eager" : "lazy"}
                     sizes="(max-width: 768px) 100vw, 33vw"
@@ -300,22 +270,27 @@ export default function GalleryPage() {
 
           {/* MOBILE VERSION (NO zoom, NO double tap) */}
           <div
-            className="
-    flex md:hidden items-center justify-center 
-    w-full h-full select-none
-    p-4 animate-fadeIn
-  "
+            className="flex md:hidden items-center justify-center 
+                        w-full h-full select-none
+                        p-4 animate-fadeIn "
             onClick={() => setLightboxOpen(false)}
             onTouchStart={(e) => {
+              if (e.touches.length !== 1) return; // 👈 ignore multi-touch
+
               const t = e.touches[0];
               (e.currentTarget as any).startX = t.clientX;
             }}
+
             onTouchEnd={(e) => {
+              if (e.changedTouches.length !== 1) return; // 👈 ignore pinch
+
               const t = e.changedTouches[0];
               const startX = (e.currentTarget as any).startX;
+
+              if (startX == null) return;
+
               const diff = t.clientX - startX;
 
-              // SWIPE navigation only
               if (diff > 50) {
                 e.stopPropagation();
                 goPrev();
@@ -324,25 +299,10 @@ export default function GalleryPage() {
                 goNext();
               }
             }}
+
           >
-            {/* LEFT ARROW */}
-            <button
-              onClick={(e) => { e.stopPropagation(); goPrev(); }}
-              className="absolute left-4 text-white/70 hover:text-white text-4xl z-[10000]"
-            >
-              ‹
-            </button>
-
-            {/* RIGHT ARROW */}
-            <button
-              onClick={(e) => { e.stopPropagation(); goNext(); }}
-              className="absolute right-4 text-white/70 hover:text-white text-4xl z-[10000]"
-            >
-              ›
-            </button>
-
             {/* Fullscreen Image */}
-            <div className="relative w-screen h-screen max-w-screen max-h-screen overflow-hidden">
+            <div className="relative w-screen min-h-dvh max-w-screen max-h-screen overflow-hidden">
               <Image
                 src={selectedImage}
                 alt="Full view"

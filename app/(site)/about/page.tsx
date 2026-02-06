@@ -5,7 +5,7 @@ import { ContainerScroll } from "@/components/ui/container-scroll-animation"
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen pt-24 pb-16">
+    <div className="min-h-dvh pt-24 pb-16">
       <div className="container mx-auto px-6">
 
 
