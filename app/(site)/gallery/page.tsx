@@ -35,6 +35,9 @@ export default function GalleryPage() {
 
 
 
+
+
+
   // fetch categories + images from API
   useEffect(() => {
     const fetchGallery = async () => {
@@ -129,6 +132,7 @@ export default function GalleryPage() {
       window.removeEventListener("keydown", handleKey);
     };
   }, [lightboxOpen, currentIndex]);
+
 
 
 
@@ -268,7 +272,7 @@ export default function GalleryPage() {
 
 
 
-          {/* MOBILE VERSION (NO zoom, NO double tap) */}
+          {/* MOBILE VERSION  */}
           <div
             className="flex md:hidden items-center justify-center 
                         w-full h-full select-none
@@ -323,12 +327,13 @@ export default function GalleryPage() {
           >
             {/* Fullscreen Image */}
             <div className="relative w-screen min-h-dvh max-w-screen max-h-screen overflow-hidden">
+
+
               <Image
                 src={selectedImage}
                 alt="Full view"
                 fill
-                className="object-contain"
-                unoptimized
+                className="object-contain"                
                 sizes="100vw"
               />
             </div>
@@ -346,6 +351,7 @@ export default function GalleryPage() {
                 p-6 animate-fadeIn
               "
             onClick={() => setLightboxOpen(false)}
+
           >
             {/* LEFT ARROW */}
             <button
@@ -365,12 +371,13 @@ export default function GalleryPage() {
 
             {/* FULLSCREEN IMAGE */}
             <div className="relative w-full h-full max-w-[90vw] max-h-[90vh]">
+
+
               <Image
                 src={selectedImage}
                 alt="Full view"
                 fill
-                className="object-contain rounded-xl"
-                unoptimized
+                className="object-contain rounded-xl"                
                 sizes="100vw"
               />
             </div>

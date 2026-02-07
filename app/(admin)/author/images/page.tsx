@@ -242,7 +242,7 @@ export default function ImagesPage() {
                     width={300}
                     height={400}
                     className="h-full w-full object-cover rounded-md"
-                    unoptimized
+                    
                   />
 
                   <button

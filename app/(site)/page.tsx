@@ -10,14 +10,29 @@ import { toast } from "sonner"
 
 
 
-
 function Shimmer() {
   return (
     <div className="absolute inset-0 overflow-hidden">
-      <div className="h-full w-1/2 -translate-x-full animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+      {/* soft base pulse */}
+      <div className="absolute inset-0 animate-pulse bg-white/5" />
+
+      {/* moving light */}
+      <div
+        className="
+          absolute inset-y-0 -left-1/2 w-[200%]
+          animate-[shimmer_2.5s_ease-in-out_infinite]
+          bg-gradient-to-r
+          from-transparent
+          via-white/12
+          to-transparent
+        "
+      />
     </div>
   );
 }
+
+
+
 
 
 function GalleryCardSkeleton() {
@@ -30,8 +45,11 @@ function GalleryCardSkeleton() {
         <Shimmer />
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 p-6">
-        <div className="relative h-6 w-2/3 rounded bg-muted-foreground/15 overflow-hidden">
+      <div
+        // className="absolute bottom-0 left-0 right-0 p-6"
+        className="p-2 tracking-widest flex justify-center"
+      >
+        <div className="relative h-6 w-2/3 rounded bg-muted-foreground/10 overflow-hidden">
           <Shimmer />
         </div>
       </div>
@@ -231,37 +249,15 @@ export default function HomePage() {
     }
   };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const y = window.scrollY;
 
-      document.documentElement.style.setProperty("--bg-parallax", `${y}px`);
-      document.documentElement.style.setProperty("--text-parallax", `${y * 0.15}px`);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-
-  useEffect(() => {
-    const onScroll = () => {
-      const y = window.scrollY;
-      const offset = Math.min(y * 0.2, 60); // smooth float
-      document.documentElement.style.setProperty("--hero-float", `${offset}px`);
-    };
-
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
 
 
 
   return (
-    <div className="min-h-dvh">
+    <div className="min-h-dvh ">
       {/* Hero Section */}
-      <section className="relative h-screen overflow-hidden flex items-center justify-center">
+      <section className="relative min-h-dvh overflow-hidden flex items-center justify-center">
 
         {/* BACKGROUND IMAGE */}
         <div
@@ -362,7 +358,10 @@ export default function HomePage() {
                     />
                   </div>
 
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                  <div
+                    // className="absolute bottom-0 left-0 right-0 p-6"
+                    className="p-2 tracking-widest flex justify-center"
+                  >
                     <h3 className="font-serif text-2xl text-foreground">
                       {cat.name}
                     </h3>
@@ -383,11 +382,11 @@ export default function HomePage() {
 
 
 
-      <section className="md:py-24">       
-        <div className="container mx-auto px-1">     
-           <p className="text-center uppercase tracking-widest text-muted-foreground md:mt-0 mt-20">
-              Testimonials
-            </p>     
+      <section className="py-20 md:py-24">
+        <div className="container mx-auto px-1">
+          <p className="text-center uppercase tracking-widest text-muted-foreground md:mt-0 mt-20">
+            Testimonials
+          </p>
           <div>
             {loadingTestimonials ? (
               <p className="text-sm text-muted-foreground">Loading testimonials...</p>
@@ -406,7 +405,7 @@ export default function HomePage() {
 
       <section className="py-24 md:py-24 bg-muted/45 rounded-4xl">
         <div className="container mx-auto px-3">
-             <div className="w-full">
+          <div className="w-full">
             <form
               onSubmit={handleSubmit}
               className="rounded-3xl border border-border bg-white/60 dark:bg-neutral-900/70 backdrop-blur-sm p-6 md:p-8 shadow-lg max-w-xl mx-auto transition-colors"

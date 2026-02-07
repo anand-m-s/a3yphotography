@@ -110,36 +110,39 @@ export default function ContactPage() {
     backdrop-blur-md animate-fadeIn delay-100
   "
             >
-              <h2 className="font-serif text-3xl mb-6">Message Me on WhatsApp</h2>
+              <h2 className="font-serif  tracking-widest md:text-3xl mb-6 flex justify-center">Message Me on WhatsApp</h2>
 
               {/* WhatsApp Button */}
-              <Link
-                href="https://wa.me/+33759624141?text=Hi%20Abhishek,%20I%20visited%20your%20portfolio%20and%20would%20love%20to%20talk%20about%20a%20photoshoot!"
-                target="_blank"
-                className="
+              <div className="flex justify-center">
+                <Link
+                  href="https://wa.me/+33759624141?text=Hi%20Abhishek,%20I%20visited%20your%20portfolio%20and%20would%20love%20to%20talk%20about%20a%20photoshoot!"
+                  target="_blank"
+                  className=" 
               relative inline-flex items-center gap-3 px-7 py-3 rounded-full 
               text-white font-medium shadow-md transition-all 
               hover:scale-105 active:scale-95
               bg-gradient-to-r from-[#25D366] to-[#128C7E]"
 
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
                 >
-                  <path d="M20.52 3.48A11.84 11.84 0 0012 .33a11.68 11.68 0 00-11.7 11.7A11.42 11.42 0 003.53 20L2 24l4.22-1.48A11.72 11.72 0 0012 23.38a11.68 11.68 0 0011.7-11.7 11.84 11.84 0 00-3.18-8.2zM12 21a9.38 9.38 0 01-4.77-1.3l-.34-.2-2.5.88.85-2.44-.22-.36A9.39 9.39 0 1121.4 12 9.46 9.46 0 0112 21zm5.24-6.91c-.29-.15-1.72-.85-1.99-.95s-.46-.15-.66.15-.76.95-.93 1.15-.34.22-.63.07a7.71 7.71 0 01-2.27-1.4 8.53 8.53 0 01-1.58-2c-.16-.29 0-.45.11-.6.11-.15.29-.36.44-.52a2 2 0 00.29-.48.54.54 0 000-.52c-.07-.15-.66-1.59-.91-2.18s-.48-.5-.66-.5h-.57a1.09 1.09 0 00-.79.37A3.32 3.32 0 006 8.42a5.81 5.81 0 001 3.07 13.51 13.51 0 004.4 4.33 15.34 15.34 0 001.61.84 3.87 3.87 0 001.79.11 3 3 0 002-1.41 2.41 2.41 0 00.18-1.41c-.08-.14-.26-.22-.56-.37z" />
-                </svg>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M20.52 3.48A11.84 11.84 0 0012 .33a11.68 11.68 0 00-11.7 11.7A11.42 11.42 0 003.53 20L2 24l4.22-1.48A11.72 11.72 0 0012 23.38a11.68 11.68 0 0011.7-11.7 11.84 11.84 0 00-3.18-8.2zM12 21a9.38 9.38 0 01-4.77-1.3l-.34-.2-2.5.88.85-2.44-.22-.36A9.39 9.39 0 1121.4 12 9.46 9.46 0 0112 21zm5.24-6.91c-.29-.15-1.72-.85-1.99-.95s-.46-.15-.66.15-.76.95-.93 1.15-.34.22-.63.07a7.71 7.71 0 01-2.27-1.4 8.53 8.53 0 01-1.58-2c-.16-.29 0-.45.11-.6.11-.15.29-.36.44-.52a2 2 0 00.29-.48.54.54 0 000-.52c-.07-.15-.66-1.59-.91-2.18s-.48-.5-.66-.5h-.57a1.09 1.09 0 00-.79.37A3.32 3.32 0 006 8.42a5.81 5.81 0 001 3.07 13.51 13.51 0 004.4 4.33 15.34 15.34 0 001.61.84 3.87 3.87 0 001.79.11 3 3 0 002-1.41 2.41 2.41 0 00.18-1.41c-.08-.14-.26-.22-.56-.37z" />
+                  </svg>
 
-                WhatsApp
-              </Link>
+                  WhatsApp
+                </Link>
+              </div>
 
-              <p className="text-sm text-muted-foreground mt-6">
+
+
+              <p className="flex justify-center text-sm text-muted-foreground mt-6 ">
                 I usually reply within a few hours.
               </p>
             </div>
-
           </div>
         </div>
       </div>

@@ -90,7 +90,7 @@ export default function TestimonialsAdminPage() {
                         <div key={t._id} className="flex items-start gap-4 p-4 rounded-md border border-border bg-background">
                             <div className="w-14 h-14 rounded overflow-hidden bg-neutral-100 shrink-0">
                                 {t.src ? (
-                                    <Image src={t.src} alt={t.name} width={56} height={56} className="object-cover" unoptimized />
+                                    <Image src={t.src} alt={t.name} width={56} height={56} className="object-cover" />
                                 ) : (
                                     <div className="w-full h-full bg-neutral-200 flex items-center justify-center text-sm text-muted-foreground">
                                         {t.name?.[0] ?? "?"}

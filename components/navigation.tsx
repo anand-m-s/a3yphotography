@@ -24,7 +24,7 @@ export function Navigation() {
         <>
             {/* NAVBAR */}
             <nav className="fixed top-0 left-0 right-0 z-50 bg-background/10 dark:bg-background/60 backdrop-blur-md border-b">
-                <div className="container mx-auto px-6 py-3 flex items-center justify-between">
+                <div className="container mx-auto px-6  py-4 flex items-center justify-between">
 
                     {/* LOGO */}
                     <Link href="/" className="flex items-center gap-2 group">
@@ -73,18 +73,19 @@ export function Navigation() {
                     {/* THEME TOGGLE + MOBILE HAMBURGER */}
                     <div className="flex items-center gap-3">
                         <Button
-                            variant="ghost"
+                            variant="default"
                             size="icon"
                             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                             className="h-9 w-9"
+
                         >
                             <Sun className="h-4 w-4 rotate-0 scale-100 dark:-rotate-90 dark:scale-0 transition-all" />
                             <Moon className="absolute h-4 w-4 rotate-90 scale-0 dark:rotate-0 dark:scale-100 transition-all" />
                         </Button>
 
-                        {/* MOBILE ONLY HAMBURGER */}
+
                         <Button
-                            variant="ghost"
+                            variant="default"
                             size="icon"
                             onClick={() => setOpen(true)}
                             className="h-9 w-9 md:hidden"
@@ -92,6 +93,9 @@ export function Navigation() {
                             <Menu className="h-5 w-5" />
                         </Button>
                     </div>
+
+
+
                 </div>
             </nav>
 
@@ -107,16 +111,30 @@ export function Navigation() {
                         onClick={() => setOpen(false)}
                     />
 
+
                     {/* SLIDING SIDEBAR PANEL */}
                     <div
                         className="
-                                relative h-full w-72
+                                relative h-full w-[85vw] max-w-[340px] rounded-r-3xl
                                 bg-white/20 dark:bg-neutral-900/40
                                 backdrop-blur-xl border-r border-white/20 dark:border-white/10 
-                                shadow-2xl p-6
+                                shadow-2xl ring-1 ring-white/20 dark:ring-white/10
+                                p-6
                                 animate-slide-in
                                 flex flex-col   
                             "
+
+                        onTouchStart={(e) => {
+                            (e.currentTarget as any).startX = e.touches[0].clientX;
+                        }}
+                        onTouchEnd={(e) => {
+                            const startX = (e.currentTarget as any).startX;
+                            const endX = e.changedTouches[0].clientX;
+
+                            if (startX - endX > 60) {
+                                setOpen(false); // 👈 swipe left closes menu
+                            }
+                        }}
                     >
                         {/* Close button */}
                         <button
@@ -131,7 +149,8 @@ export function Navigation() {
                         </h3> */}
 
                         {/* NAV LINKS */}
-                        <nav className="flex flex-col gap-5 mt-10">
+                        {/* <nav className="flex flex-col gap-5 mt-10"> */}
+                        <nav className="flex flex-col gap-5 mt-12">
                             {[
                                 { href: "/", label: "Home", icon: <Home className="h-5 w-5" /> },
                                 { href: "/gallery", label: "Gallery", icon: <Images className="h-5 w-5" /> },
@@ -145,7 +164,7 @@ export function Navigation() {
                                     className={cn(
                                         "flex items-center gap-3 px-4 py-3 rounded-xl transition-all",
                                         pathname === item.href
-                                            ? "bg-black/10 dark:bg-white/10 text-black dark:text-white"
+                                            ? "bg-black/15 dark:bg-white/15 text-black dark:text-white scale-[1.02]"
                                             : "text-neutral-950 dark:text-neutral-300 hover:bg-black/5 dark:hover:bg-white/10"
                                     )}
                                 >
@@ -153,6 +172,12 @@ export function Navigation() {
                                     <span className="text-sm font-medium">{item.label}</span>
                                 </Link>
                             ))}
+                            <div className="mt-auto pt-6 border-t border-black/10 dark:border-white/10">
+                                <p className="text-xs text-muted-foreground text-center">
+                                    © A3Y Photography
+                                </p>
+                            </div>
+
                         </nav>
                     </div>
                 </div>

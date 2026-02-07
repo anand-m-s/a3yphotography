@@ -41,7 +41,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`font-sans ${GeistSans.variable} ${playfair.variable} antialiased`}>
+      <body className={`min-h-dvh flex flex-col font-sans ${GeistSans.variable} ${playfair.variable} antialiased  `} >
 
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <ConfirmProvider>

@@ -40,7 +40,7 @@ export function Footer() {
                        
 
                         <a
-                            href="https://www.behance.net/aby7269"
+                            href="https://www.behance.net/aby7269/"
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label="Behance"
