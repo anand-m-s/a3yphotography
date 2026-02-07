@@ -28,6 +28,9 @@ export default function GalleryPage() {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [currentIndex, setCurrentIndex] = useState<number | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+
 
 
 
@@ -120,7 +123,7 @@ export default function GalleryPage() {
 
     // Keyboard controls
     const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setLightboxOpen(false);
+      if (e.key === "Escape") closeLightbox();
       if (e.key === "ArrowRight") goNext();
       if (e.key === "ArrowLeft") goPrev();
     };
@@ -132,6 +135,39 @@ export default function GalleryPage() {
       window.removeEventListener("keydown", handleKey);
     };
   }, [lightboxOpen, currentIndex]);
+
+  useEffect(() => {
+    if (lightboxOpen) {
+      requestAnimationFrame(() => setIsVisible(true));
+    }
+  }, [lightboxOpen]);
+
+  const closeLightbox = () => {
+    setIsVisible(false);
+    setTimeout(() => {
+      setLightboxOpen(false);
+    }, 300); 
+  };
+
+  useEffect(() => {
+    if (!lightboxOpen) return;
+
+    // push fake history entry
+    window.history.pushState({ lightbox: true }, "");
+
+    const handlePopState = () => {
+      closeLightbox();
+    };
+
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, [lightboxOpen]);
+
+
+
 
 
 
@@ -155,22 +191,53 @@ export default function GalleryPage() {
         </div>
 
         {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-4 mb-16">
-          {filterOptions.map((category) => (
-            <button
-              key={category.id}
-              onClick={() => setActiveCategory(category.id)}
-              className={cn(
-                "px-6 py-2 rounded-full text-sm tracking-wide transition-all cursor-pointer",
-                activeCategory === category.id
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground"
-              )}
-            >
-              {category.label}
-            </button>
-          ))}
-        </div>
+        {/* Category Filter Skeleton */}
+        {loading ?
+          <div className="flex flex-wrap justify-center gap-4 mb-16">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div
+                key={i}
+                className="
+                  h-9 w-28
+                  rounded-full
+                  bg-muted
+                  relative
+                  overflow-hidden
+                "
+              >
+                {/* shimmer */}
+                <div
+                  className="
+                    absolute inset-0
+                    -translate-x-full
+                    animate-[shimmer_1.6s_infinite]
+                    bg-gradient-to-r
+                    from-transparent
+                    via-white/15
+                    to-transparent
+                  "
+                />
+              </div>
+            ))}
+          </div>
+          :
+          <div className="flex flex-wrap justify-center gap-4 mb-16">
+            {filterOptions.map((category) => (
+              <button
+                key={category.id}
+                onClick={() => setActiveCategory(category.id)}
+                className={cn(
+                  "px-6 py-2 rounded-full text-sm tracking-wide transition-all cursor-pointer",
+                  activeCategory === category.id
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground"
+                )}
+              >
+                {category.label}
+              </button>
+            ))}
+          </div>
+        }
 
         {/* Photo Grid */}
         {loading ? (
@@ -189,11 +256,11 @@ export default function GalleryPage() {
             className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
             {filteredPhotos.map((photo, index) => (
               <div
-
                 key={photo.id}
                 className="cursor-pointer relative w-full mb-4 overflow-hidden rounded-lg group"
                 style={{ breakInside: "avoid" }}
                 onClick={() => {
+                 
                   setSelectedImage(photo.url);
                   setCurrentIndex(index);
                   setLightboxOpen(true);
@@ -233,10 +300,20 @@ export default function GalleryPage() {
 
 
       {lightboxOpen && selectedImage && (
-        <div className="fixed inset-0 z-[9999] bg-black/95 backdrop-blur-xl">
+        // <div className="fixed inset-0 z-[9999] bg-black/95 backdrop-blur-xl">
+        <div
+          className={cn(
+            "fixed inset-0 z-[9999] bg-black/95 backdrop-blur-xl",
+            "transition-all duration-300 ease-out",
+            isVisible
+              ? "opacity-100 scale-100"
+              : "opacity-0 scale-[0.96]"
+          )}
+        >
+
           <button
-            onClick={() => setLightboxOpen(false)}
-            className="
+            onClick={() => closeLightbox()}
+            className="hidden md:block
                 cursor-pointer fixed top-6 right-6 z-[10000]
                 text-white/90 hover:text-white 
                 text-2xl md:text-4xl font-light
@@ -277,7 +354,7 @@ export default function GalleryPage() {
             className="flex md:hidden items-center justify-center 
                         w-full h-full select-none
                         p-4 animate-fadeIn "
-            onClick={() => setLightboxOpen(false)}
+            onClick={() => closeLightbox()}
 
 
             onTouchStart={(e) => {
@@ -327,13 +404,11 @@ export default function GalleryPage() {
           >
             {/* Fullscreen Image */}
             <div className="relative w-screen min-h-dvh max-w-screen max-h-screen overflow-hidden">
-
-
               <Image
                 src={selectedImage}
                 alt="Full view"
                 fill
-                className="object-contain"                
+                className="object-contain"
                 sizes="100vw"
               />
             </div>
@@ -350,7 +425,7 @@ export default function GalleryPage() {
                 w-full h-full select-none
                 p-6 animate-fadeIn
               "
-            onClick={() => setLightboxOpen(false)}
+            onClick={() => closeLightbox()}
 
           >
             {/* LEFT ARROW */}
@@ -370,14 +445,12 @@ export default function GalleryPage() {
             </button>
 
             {/* FULLSCREEN IMAGE */}
-            <div className="relative w-full h-full max-w-[90vw] max-h-[90vh]">
-
-
+            <div className="relative w-full h-full max-w-[90vw] max-h-[90vh]">           
               <Image
                 src={selectedImage}
                 alt="Full view"
                 fill
-                className="object-contain rounded-xl"                
+                className="object-contain rounded-xl"
                 sizes="100vw"
               />
             </div>
@@ -385,10 +458,11 @@ export default function GalleryPage() {
 
 
         </div>
-      )}
+      )
+      }
 
 
 
-    </div>
+    </div >
   );
 }
