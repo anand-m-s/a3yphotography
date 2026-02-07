@@ -19,6 +19,18 @@ export function Navigation() {
     const pathname = usePathname();
     const { theme, setTheme } = useTheme();
     const [open, setOpen] = useState(false);
+    const [closing, setClosing] = useState(false);
+
+
+    const closeMenu = () => {
+        setClosing(true);
+
+        setTimeout(() => {
+            setOpen(false);
+            setClosing(false);
+        }, 300); // MUST match animation duration
+    };
+
 
     return (
         <>
@@ -108,21 +120,34 @@ export function Navigation() {
                     {/* BACKDROP */}
                     <div
                         className="absolute inset-0 bg-black/10 backdrop-blur-sm animate-fade-in"
-                        onClick={() => setOpen(false)}
+                        // onClick={() => setOpen(false)}
+                        onClick={closeMenu}
+
                     />
 
 
                     {/* SLIDING SIDEBAR PANEL */}
                     <div
-                        className="
-                                relative h-full w-[85vw] max-w-[340px] rounded-r-3xl
-                                bg-white/20 dark:bg-neutral-900/40
-                                backdrop-blur-xl border-r border-white/20 dark:border-white/10 
-                                shadow-2xl ring-1 ring-white/20 dark:ring-white/10
-                                p-6
-                                animate-slide-in
-                                flex flex-col   
-                            "
+                        // className="
+                        //         relative h-full w-[85vw] max-w-[340px] rounded-r-3xl
+                        //         bg-white/20 dark:bg-neutral-900/40
+                        //         backdrop-blur-xl border-r border-white/20 dark:border-white/10 
+                        //         shadow-2xl ring-1 ring-white/20 dark:ring-white/10
+                        //         p-6
+                        //         animate-slide-in
+                        //         flex flex-col   
+                        //     "
+                        className={cn(
+                                    `relative h-full w-[85vw] max-w-[340px]
+                                    bg-white/20 dark:bg-neutral-900/40
+                                    backdrop-blur-xl border-r border-white/20 dark:border-white/10
+                                    shadow-2xl p-6
+                                    flex flex-col
+                                    rounded-r-3xl
+                                    will-change-transform
+                                    `,
+                            closing ? "animate-slide-out" : "animate-slide-in"
+                        )}
 
                         onTouchStart={(e) => {
                             (e.currentTarget as any).startX = e.touches[0].clientX;
@@ -132,21 +157,14 @@ export function Navigation() {
                             const endX = e.changedTouches[0].clientX;
 
                             if (startX - endX > 60) {
-                                setOpen(false); // 👈 swipe left closes menu
+                                closeMenu(); // 👈 swipe left closes menu
                             }
                         }}
                     >
-                        {/* Close button */}
-                        <button
-                            className="absolute top-4 right-4 text-neutral-700 dark:text-neutral-300 hover:opacity-70"
-                            onClick={() => setOpen(false)}
-                        >
-                            <X className="h-6 w-6" />
-                        </button>
 
-                        {/* <h3 className="font-serif text-2xl font-semibold mb-8 text-neutral-900 dark:text-neutral-100">
-                            Menu
-                        </h3> */}
+
+
+
 
                         {/* NAV LINKS */}
                         {/* <nav className="flex flex-col gap-5 mt-10"> */}
@@ -160,7 +178,7 @@ export function Navigation() {
                                 <Link
                                     key={item.href}
                                     href={item.href}
-                                    onClick={() => setOpen(false)}
+                                    onClick={closeMenu}
                                     className={cn(
                                         "flex items-center gap-3 px-4 py-3 rounded-xl transition-all",
                                         pathname === item.href
@@ -208,6 +226,22 @@ export function Navigation() {
   .animate-fade-in {
     animation: fade-in 0.4s ease-out;
   }
+
+  @keyframes slide-out {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+.animate-slide-out {
+  animation: slide-out 0.3s cubic-bezier(0.4, 0, 1, 1);
+}
+
 `}</style>
 
         </>

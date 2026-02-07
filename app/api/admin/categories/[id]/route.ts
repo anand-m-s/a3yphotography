@@ -13,10 +13,13 @@ const slugify = (value: string) =>
     .replace(/[^a-z0-9-]/g, "")
     .replace(/-+/g, "-");
 
-export async function PATCH(req: NextRequest, { params }: Params) {
+export async function PATCH(
+  _req: NextRequest,
+  context: { params: Promise<{ id: string }> }) {
   try {
+    const { id } = await context.params;
     await connectDB();
-    const body = await req.json();
+    const body = await _req.json();
 
     if (!body.name) {
       return NextResponse.json(
@@ -28,7 +31,7 @@ export async function PATCH(req: NextRequest, { params }: Params) {
     const slug = slugify(body.name);
 
     const updated = await Category.findByIdAndUpdate(
-      params.id,
+      id,
       {
         $set: {
           name: body.name,
@@ -63,10 +66,15 @@ export async function PATCH(req: NextRequest, { params }: Params) {
   }
 }
 
-export async function DELETE(_req: NextRequest, { params }: Params) {
+export async function DELETE(
+  _req: NextRequest,
+  context: { params: Promise<{ id: string }> }
+) {
   try {
+    const { id } = await context.params;
+
     await connectDB();
-    const deleted = await Category.findByIdAndDelete(params.id);
+    const deleted = await Category.findByIdAndDelete(id);
 
     if (!deleted) {
       return NextResponse.json(
@@ -84,3 +92,4 @@ export async function DELETE(_req: NextRequest, { params }: Params) {
     );
   }
 }
+

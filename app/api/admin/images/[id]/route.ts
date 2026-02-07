@@ -8,9 +8,12 @@ type Params = {
   };
 };
 
-export async function DELETE(req: NextRequest, { params }: Params) {
+export async function DELETE(
+  req: NextRequest,
+  context: { params: Promise<{ id: string }> }
+) {
   await connectDB();
-  const { id } = params;
+    const { id } = await context.params; 
 
   try {
     await Image.findByIdAndDelete(id);
