@@ -179,7 +179,7 @@ export function Navigation() {
                         <div className="flex flex-col items-center gap-3 pb-6 border-b border-black/10 dark:border-white/10">
                             <div className="relative w-28 h-28 rounded-full overflow-hidden ring-2 ring-black/10 dark:ring-white/20">
                                 <Image
-                                    src="/gallery/Aby/IMG_0211.JPG"
+                                    src="/gallery/Aby/profilepic.webp"
                                     alt="A3Y Photography profile"
                                     fill
                                     className="object-cover scale-[1.34] object-center"

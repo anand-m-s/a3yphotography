@@ -428,7 +428,7 @@ export default function HomePage() {
           <p className="text-center uppercase tracking-widest text-muted-foreground md:mt-0 mt-20">
             Testimonials
           </p>
-          <div>
+          <div className="relative min-h-[872px] md:min-h-[550px] overflow-hidden">
             {loadingTestimonials ? (
               <div className="mx-auto max-w-sm px-4 py-20 md:max-w-4xl md:px-8 lg:px-12">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-20">
