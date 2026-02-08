@@ -350,6 +350,7 @@ export default function HomePage() {
               <p>
                 I'm a photographer based in Paris. I capture people and moments as they truly are, natural, warm, and full of life. Every photograph I create is meant to feel real, honest, and unforgettable.
               </p>
+             
 
             </div>
             <div className="mt-12">
