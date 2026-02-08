@@ -30,7 +30,7 @@ export default function GalleryPage() {
   const [currentIndex, setCurrentIndex] = useState<number | null>(null);
   const [isVisible, setIsVisible] = useState(false);
 
-  const widths = ["w-24", "w-28", "w-32", "w-38"];
+  const widths = ["w-24", "w-25", "w-24", "w-25", "w-26","w-52"];
 
 
 
