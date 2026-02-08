@@ -65,7 +65,7 @@ export const AnimatedTestimonials = ({
           <div className="relative h-80 w-full">
             <AnimatePresence>
               {testimonials.map((testimonial, index) => (
-               
+
                 <motion.div
                   key={index}
                   drag={isActive(index) ? "x" : false}   // 👈 only active card draggable
@@ -98,7 +98,7 @@ export const AnimatedTestimonials = ({
                     duration: 0.4,
                     ease: "easeInOut",
                   }}
-                  className="absolute inset-0 origin-bottom touch-pan-y"
+                  className="absolute inset-0 origin-bottom touch-pan-y cursor-pointer"
                 >
 
                   <Image

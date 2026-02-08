@@ -423,7 +423,7 @@ export default function HomePage() {
 
 
 
-      <section className="py-20 md:py-24">
+      <section className="md:py-20">
         <div className="container mx-auto px-1">
           <p className="text-center uppercase tracking-widest text-muted-foreground md:mt-0 mt-20">
             Testimonials
