@@ -31,16 +31,16 @@ export const TypewriterEffect = ({
       animate(
         "span",
         {
-          display: "inline-block",
           opacity: 1,
-          width: "fit-content",
+          y: 0,
         },
         {
-          duration: 0.3,
-          delay: stagger(0.1),
-          ease: "easeInOut",
+          duration: 0.25,
+          delay: stagger(0.034), 
+          ease: "easeOut",
         }
       );
+
     }
   }, [isInView]);
 
@@ -52,10 +52,10 @@ export const TypewriterEffect = ({
             <div key={`word-${idx}`} className="inline-block">
               {word.text.map((char, index) => (
                 <motion.span
-                  initial={{}}
+                  initial={{ opacity: 0, y: "0.25em" }}
                   key={`char-${index}`}
                   className={cn(
-                    `dark:text-white text-black opacity-0 hidden`,
+                    `dark:text-white text-black opacity-0 translate-y-[0.25em] will-change-transform`,
                     word.className
                   )}
                 >
