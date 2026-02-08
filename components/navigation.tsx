@@ -119,26 +119,20 @@ export function Navigation() {
 
                     {/* BACKDROP */}
                     <div
-                        className="absolute inset-0 bg-black/10 backdrop-blur-sm animate-fade-in"
-                        // onClick={() => setOpen(false)}
+                        className={cn(
+                            "absolute inset-0 bg-black/10 backdrop-blur-sm transition-opacity duration-300",
+                            closing ? "opacity-0" : "opacity-100"
+                        )}
                         onClick={closeMenu}
-
                     />
+
 
 
                     {/* SLIDING SIDEBAR PANEL */}
                     <div
-                        // className="
-                        //         relative h-full w-[85vw] max-w-[340px] rounded-r-3xl
-                        //         bg-white/20 dark:bg-neutral-900/40
-                        //         backdrop-blur-xl border-r border-white/20 dark:border-white/10 
-                        //         shadow-2xl ring-1 ring-white/20 dark:ring-white/10
-                        //         p-6
-                        //         animate-slide-in
-                        //         flex flex-col   
-                        //     "
+
                         className={cn(
-                                    `relative h-full w-[85vw] max-w-[340px]
+                            `relative h-full w-[85vw] max-w-[340px]
                                     bg-white/20 dark:bg-neutral-900/40
                                     backdrop-blur-xl border-r border-white/20 dark:border-white/10
                                     shadow-2xl p-6
@@ -180,23 +174,23 @@ export function Navigation() {
                                     href={item.href}
                                     onClick={closeMenu}
                                     className={cn(
-                                        "flex items-center gap-3 px-4 py-3 rounded-xl transition-all",
+                                        "flex items-center justify-center gap-3 px-4 py-3 rounded-xl transition-all ",
                                         pathname === item.href
                                             ? "bg-black/15 dark:bg-white/15 text-black dark:text-white scale-[1.02]"
                                             : "text-neutral-950 dark:text-neutral-300 hover:bg-black/5 dark:hover:bg-white/10"
                                     )}
                                 >
-                                    <span className="text-neutral-950 dark:text-neutral-200">{item.icon}</span>
-                                    <span className="text-sm font-medium">{item.label}</span>
+                                    <span className="text-neutral-950 dark:text-neutral-200 ">{item.icon}</span>
+                                    <span className="text-sm  font-medium">{item.label}</span>
                                 </Link>
                             ))}
-                            <div className="mt-auto pt-6 border-t border-black/10 dark:border-white/10">
-                                <p className="text-xs text-muted-foreground text-center">
-                                    © A3Y Photography
-                                </p>
-                            </div>
 
                         </nav>
+                        <div className="mt-auto pt-8 border-t border-black/10 dark:border-white/10">
+                            <p className="text-xs text-muted-foreground text-center">
+                                © A3Y Photography
+                            </p>
+                        </div>
                     </div>
                 </div>
             )}
