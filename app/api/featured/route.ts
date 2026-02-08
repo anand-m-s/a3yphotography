@@ -27,8 +27,8 @@ export async function GET() {
         })
     );
 
-    // const filtered = withRandomImage.filter(Boolean).slice(0,4);
-    const filtered = withRandomImage.filter(Boolean);
+    const filtered = withRandomImage.filter(Boolean).slice(0,8);
+    // const filtered = withRandomImage.filter(Boolean);
 
     
 

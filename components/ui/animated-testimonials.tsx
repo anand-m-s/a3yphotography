@@ -65,36 +65,7 @@ export const AnimatedTestimonials = ({
           <div className="relative h-80 w-full">
             <AnimatePresence>
               {testimonials.map((testimonial, index) => (
-                // <motion.div
-                //   key={index}
-                //   initial={{
-                //     opacity: 0,
-                //     scale: 0.9,
-                //     z: -100,
-                //     rotate: getRotateForIndex(index),
-                //   }}
-                //   animate={{
-                //     opacity: isActive(index) ? 1 : 0.7,
-                //     scale: isActive(index) ? 1 : 0.95,
-                //     z: isActive(index) ? 0 : -100,
-                //     rotate: isActive(index) ? 0 : getRotateForIndex(index),
-                //     zIndex: isActive(index)
-                //       ? 40
-                //       : testimonials.length + 2 - index,
-                //     y: isActive(index) ? [0, -80, 0] : 0,
-                //   }}
-                //   exit={{
-                //     opacity: 0,
-                //     scale: 0.9,
-                //     z: 100,
-                //     rotate: getRotateForIndex(index),
-                //   }}
-                //   transition={{
-                //     duration: 0.4,
-                //     ease: "easeInOut",
-                //   }}
-                //   className="absolute inset-0 origin-bottom"
-                // >
+               
                 <motion.div
                   key={index}
                   drag={isActive(index) ? "x" : false}   // 👈 only active card draggable

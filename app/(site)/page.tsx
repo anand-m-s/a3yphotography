@@ -5,6 +5,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { useTheme } from "next-themes"
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials"
+import { TypewriterEffect } from "@/components/ui/typewriter-effect";
 import { useState, useEffect, type FormEvent, type ChangeEvent } from "react"
 import { toast } from "sonner"
 
@@ -80,7 +81,41 @@ export default function HomePage() {
   const [loadingTestimonials, setLoadingTestimonials] = useState(true)
   const [featured, setFeatured] = useState<FeaturedCategory[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [expectedCount, setExpectedCount] = useState(5);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+
+  useEffect(() => {
+    const check = () => setIsDesktop(window.innerWidth >= 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  const previewCount = isDesktop ? 8 : 5;
+
+  const words = [
+    {
+      text: "Hello",
+    },
+    {
+      text: "I'm",
+    },
+    {
+      text: "Abhishek",
+      className: "text-slate-700 dark:text-slate-300",
+    },
+    {
+      text: "Das",
+      className: "text-slate-700 dark:text-slate-300",
+    }
+
+
+
+
+
+
+  ];
+
 
 
   useEffect(() => {
@@ -90,7 +125,7 @@ export default function HomePage() {
 
       const data = json.data || [];
 
-      setExpectedCount(data.length); // 👈 key line
+
       setFeatured(data);
       setIsLoading(false);
     }
@@ -284,7 +319,9 @@ export default function HomePage() {
           </p>
 
           <Button asChild size="lg">
-            <Link href="/gallery">View Portfolio</Link>
+            <Link href="/gallery"
+              className="tracking-widest uppercase text-sm font-light"
+            >Explore Gallery</Link>
           </Button>
         </div>
 
@@ -297,12 +334,18 @@ export default function HomePage() {
       <section className="py-16 md:py-24 shadow-2xl">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
-            {/* <p className="text-sm uppercase tracking-widest text-muted-foreground mb-4">
-              Introduction
-            </p> */}
-            <h2 className="font-serif text-3xl md:text-5xl mb-8 text-balance">
+
+            {/* <h2
+              className="font-serif text-3xl md:text-5xl mb-8 text-balance">
               Hello, I&apos;m Abhishek Das
-            </h2>
+            </h2> */}
+            <div
+              className="mb-8"
+            >
+
+              <TypewriterEffect words={words} />
+            </div>
+
             <div className="space-y-6 text-lg leading-relaxed text-muted-foreground">
               <p>
                 I'm a photographer based in Paris. I capture people and moments as they truly are, natural, warm, and full of life. Every photograph I create is meant to feel real, honest, and unforgettable.
@@ -325,9 +368,6 @@ export default function HomePage() {
       <section className="py-24 md:py-24 bg-muted/45 rounded-4xl">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            {/* <p className="text-sm uppercase tracking-widest text-muted-foreground mb-4">
-              Portfolio
-            </p> */}
             <h2 className="font-serif text-3xl md:text-5xl mb-6">
               Featured Work
             </h2>
@@ -337,10 +377,10 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {isLoading
-              ? Array.from({ length: expectedCount }).map((_, i) => (
+              ? Array.from({ length: previewCount }).map((_, i) => (
                 <GalleryCardSkeleton key={i} />
               ))
-              : featured.map((cat) => (
+              : featured.slice(0, previewCount).map((cat) => (
                 <Link
                   key={cat._id}
                   href={`/gallery#${cat.slug}`}
@@ -389,7 +429,29 @@ export default function HomePage() {
           </p>
           <div>
             {loadingTestimonials ? (
-              <p className="text-sm text-muted-foreground">Loading testimonials...</p>
+              <div className="mx-auto max-w-sm px-4 py-20 md:max-w-4xl md:px-8 lg:px-12">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-20">
+
+                  {/* Image placeholder */}
+                  <div className="relative h-80 w-full rounded-3xl bg-muted/70 animate-pulse" />
+
+                  {/* Text placeholder */}
+                  <div className="flex flex-col justify-between py-2 space-y-4">
+                    <div className="h-6 w-1/3 rounded bg-muted animate-pulse" />
+                    <div className="space-y-3">
+                      <div className="h-4 w-full rounded bg-muted animate-pulse" />
+                      <div className="h-4 w-5/6 rounded bg-muted animate-pulse" />
+                      <div className="h-4 w-4/6 rounded bg-muted animate-pulse" />
+                    </div>
+
+                    {/* Buttons placeholder (desktop only) */}
+                    <div className="hidden md:flex gap-4 pt-12">
+                      <div className="h-10 w-10 rounded-full bg-muted animate-pulse" />
+                      <div className="h-10 w-10 rounded-full bg-muted animate-pulse" />
+                    </div>
+                  </div>
+                </div>
+              </div>
             ) : testimonialsData.length === 0 ? (
               <p className="text-sm text-muted-foreground">
                 No testimonials yet. Add the first one on the right.
@@ -417,7 +479,7 @@ export default function HomePage() {
                     Share Your Experience
                   </h3>
                   <p className="text-sm text-muted-foreground dark:text-neutral-300 mt-1">
-                    Your story helps others — short, sincere, and thankful.
+                    A short, honest note helps others trust the journey.
                   </p>
                 </div>
               </div>
@@ -473,9 +535,6 @@ export default function HomePage() {
                         onChange={handleFileChange}
                         className="sr-only"
                       />
-                      {/* <p className="text-xs mt-2 text-neutral-600 dark:text-neutral-400">
-                      JPG or PNG — keep it under 5MB for faster uploads.
-                    </p> */}
                     </div>
                   </div>
                 </div>
