@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 import { Home, Images, User, Mail, Menu, X, Sun, Moon } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const navItems = [
     { href: "/", label: "Home" },
@@ -28,8 +29,25 @@ export function Navigation() {
         setTimeout(() => {
             setOpen(false);
             setClosing(false);
-        }, 300); // MUST match animation duration
+        }, 300);
     };
+
+    useEffect(() => {
+        if (open) {
+            document.body.style.overflow = "hidden";
+            document.body.style.touchAction = "none";
+        } else {
+            document.body.style.overflow = "";
+            document.body.style.touchAction = "";
+        }
+
+        return () => {
+            document.body.style.overflow = "";
+            document.body.style.touchAction = "";
+        };
+    }, [open]);
+
+
 
 
     return (
@@ -158,6 +176,22 @@ export function Navigation() {
 
 
 
+                        <div className="flex flex-col items-center gap-3 pb-6 border-b border-black/10 dark:border-white/10">
+                            <div className="relative w-28 h-28 rounded-full overflow-hidden ring-2 ring-black/10 dark:ring-white/20">
+                                <Image
+                                    src="/gallery/Aby/IMG_0211.JPG"
+                                    alt="A3Y Photography profile"
+                                    fill
+                                    className="object-cover scale-[1.34] object-center"
+                                    sizes="80px"
+                                    priority
+                                />
+                            </div>
+
+                            <p className="font-serif text-sm tracking-wide text-foreground">
+                                A3Y Photography
+                            </p>
+                        </div>
 
 
                         {/* NAV LINKS */}

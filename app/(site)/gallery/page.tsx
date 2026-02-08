@@ -186,10 +186,7 @@ export default function GalleryPage() {
       <div className="container mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-10">
-          <h1 className="font-serif text-4xl md:text-4xl mb-2">Portfolio</h1>
-          {/* <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            An exhibition of my photography across various genres
-          </p> */}
+          <h1 className="font-serif text-4xl md:text-6xl font-light uppercase mb-2">Captured</h1>
         </div>
 
         {/* Category Filter */}
@@ -201,7 +198,7 @@ export default function GalleryPage() {
                 key={i}
                 className={`h-9 ${widths[i % widths.length]} rounded-full bg-muted`}
 
-              >        
+              >
               </div>
             ))}
           </div>
