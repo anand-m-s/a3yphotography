@@ -30,6 +30,8 @@ export default function GalleryPage() {
   const [currentIndex, setCurrentIndex] = useState<number | null>(null);
   const [isVisible, setIsVisible] = useState(false);
 
+  const widths = ["w-24", "w-28", "w-32", "w-38"];
+
 
 
 
@@ -146,7 +148,7 @@ export default function GalleryPage() {
     setIsVisible(false);
     setTimeout(() => {
       setLightboxOpen(false);
-    }, 300); 
+    }, 300);
   };
 
   useEffect(() => {
@@ -197,13 +199,15 @@ export default function GalleryPage() {
             {Array.from({ length: 6 }).map((_, i) => (
               <div
                 key={i}
-                className="
-                  h-9 w-28
-                  rounded-full
-                  bg-muted
-                  relative
-                  overflow-hidden
-                "
+                // className="
+                //   h-9 w-28
+                //   rounded-full
+                //   bg-muted
+                //   relative
+                //   overflow-hidden
+                // "
+                className={`h-9 ${widths[i % widths.length]} rounded-full bg-muted`}
+
               >
                 {/* shimmer */}
                 <div
@@ -260,7 +264,7 @@ export default function GalleryPage() {
                 className="cursor-pointer relative w-full mb-4 overflow-hidden rounded-lg group"
                 style={{ breakInside: "avoid" }}
                 onClick={() => {
-                 
+
                   setSelectedImage(photo.url);
                   setCurrentIndex(index);
                   setLightboxOpen(true);
@@ -445,7 +449,7 @@ export default function GalleryPage() {
             </button>
 
             {/* FULLSCREEN IMAGE */}
-            <div className="relative w-full h-full max-w-[90vw] max-h-[90vh]">           
+            <div className="relative w-full h-full max-w-[90vw] max-h-[90vh]">
               <Image
                 src={selectedImage}
                 alt="Full view"
