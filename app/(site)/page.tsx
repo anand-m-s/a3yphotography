@@ -353,7 +353,7 @@ export default function HomePage() {
              
 
             </div>
-            <div className="mt-12">
+            <div className="mt-12 text-center">
               <Button asChild variant="outline" size="lg">
                 <Link href="/about">Learn More About Me</Link>
               </Button>

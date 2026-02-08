@@ -30,7 +30,7 @@ export default function GalleryPage() {
   const [currentIndex, setCurrentIndex] = useState<number | null>(null);
   const [isVisible, setIsVisible] = useState(false);
 
-  const widths = ["w-24", "w-25", "w-24", "w-25", "w-26","w-52"];
+  const widths = ["w-24", "w-25", "w-24", "w-25", "w-26", "w-52"];
 
 
 
@@ -199,28 +199,9 @@ export default function GalleryPage() {
             {Array.from({ length: 6 }).map((_, i) => (
               <div
                 key={i}
-                // className="
-                //   h-9 w-28
-                //   rounded-full
-                //   bg-muted
-                //   relative
-                //   overflow-hidden
-                // "
                 className={`h-9 ${widths[i % widths.length]} rounded-full bg-muted`}
 
-              >
-                {/* shimmer */}
-                <div
-                  className="
-                    absolute inset-0
-                    -translate-x-full
-                    animate-[shimmer_1.6s_infinite]
-                    bg-gradient-to-r
-                    from-transparent
-                    via-white/15
-                    to-transparent
-                  "
-                />
+              >        
               </div>
             ))}
           </div>
