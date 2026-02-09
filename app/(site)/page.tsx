@@ -303,18 +303,42 @@ export default function HomePage() {
         />
 
         {/* GRADIENT OVERLAY */}
+        {/* <div
+          className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/60 pointer-events-none" /> */}
         <div
-          className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/60 pointer-events-none" />
+          className="
+                    absolute inset-0
+                    bg-gradient-to-b
+                    from-black/30 via-black/35 to-black/70
+                    pointer-events-none
+                  "
+        />
+
 
         {/* CONTENT */}
-        {/* <div className="relative z-10 container mx-auto px-6 text-center"> */}
+
         <div className="relative z-10 container mx-auto px-6 text-center animate-fadeIn">
 
-          <h1 className="font-serif text-5xl md:text-6xl mb-6 text-balance">
+          {/* <h1 className="font-serif text-5xl md:text-6xl mb-6 text-balance"> */}
+          <h1
+            className="
+                        font-serif text-5xl md:text-6xl mb-6 text-balance
+                        text-white
+                        drop-shadow-[0_2px_14px_rgba(0,0,0,0.6)]
+                      "
+          >
+
+
             Capturing Moments,<br />Creating Memories
           </h1>
 
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8 text-balance">
+          {/* <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8 text-balance"> */}
+          <p
+            className="
+                      text-lg max-w-2xl mx-auto mb-8 text-balance
+                      text-white/80
+                    "
+          >
             Paris based photographer specializing in authentic storytelling through the lens
           </p>
 
@@ -350,7 +374,7 @@ export default function HomePage() {
               <p>
                 I'm a photographer based in Paris. I capture people and moments as they truly are, natural, warm, and full of life. Every photograph I create is meant to feel real, honest, and unforgettable.
               </p>
-             
+
 
             </div>
             <div className="mt-12 text-center">
@@ -370,7 +394,7 @@ export default function HomePage() {
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="font-serif text-3xl md:text-5xl mb-6">
-              Featured Work
+              Featured
             </h2>
           </div>
 
