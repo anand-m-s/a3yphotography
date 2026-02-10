@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
@@ -30,17 +30,16 @@ export default function GalleryPage() {
   const [currentIndex, setCurrentIndex] = useState<number | null>(null);
   const [isVisible, setIsVisible] = useState(false);
 
+  const thumbContainerRef = useRef<HTMLDivElement | null>(null);
+  const mobileThumbContainerRef = useRef<HTMLDivElement | null>(null);
+  const activeThumbRef = useRef<HTMLButtonElement | null>(null);
+  const activeMobileThumbRef = useRef<HTMLButtonElement | null>(null);
+
+  const [isZooming, setIsZooming] = useState(false);
+
+
+
   const widths = ["w-24", "w-25", "w-24", "w-25", "w-26", "w-52"];
-
-
-
-
-
-
-
-
-
-
 
 
   // fetch categories + images from API
@@ -169,8 +168,17 @@ export default function GalleryPage() {
   }, [lightboxOpen]);
 
 
-
-
+  useEffect(() => {
+    [activeThumbRef, activeMobileThumbRef].forEach(ref => {
+      if (ref.current) {
+        ref.current.scrollIntoView({
+          behavior: "smooth",
+          inline: "center",
+          block: "nearest",
+        });
+      }
+    });
+  }, [currentIndex]);
 
 
 
@@ -275,14 +283,9 @@ export default function GalleryPage() {
         )}
       </div>
 
-
-
       {/* Fullscreen Lightbox */}
 
-
-
       {lightboxOpen && selectedImage && (
-        // <div className="fixed inset-0 z-[9999] bg-black/95 backdrop-blur-xl">
         <div
           className={cn(
             "fixed inset-0 z-[9999] bg-black/95 backdrop-blur-xl",
@@ -291,6 +294,7 @@ export default function GalleryPage() {
               ? "opacity-100 scale-100"
               : "opacity-0 scale-[0.96]"
           )}
+          onClick={() => closeLightbox()}
         >
 
           <button
@@ -326,17 +330,13 @@ export default function GalleryPage() {
             ✕
           </button>
 
-
-
-
-
-
           {/* MOBILE VERSION  */}
+
           <div
             className="flex md:hidden items-center justify-center 
                         w-full h-full select-none
                         p-4 animate-fadeIn "
-            onClick={() => closeLightbox()}
+            // onClick={() => closeLightbox()}
 
 
             onTouchStart={(e) => {
@@ -353,7 +353,8 @@ export default function GalleryPage() {
               const el = e.currentTarget as any;
 
               if (e.touches.length > 1) {
-                el.isPinching = true; // 👈 mark pinch immediately
+                el.isPinching = true;
+                setIsZooming(true);
               }
             }}
 
@@ -364,7 +365,9 @@ export default function GalleryPage() {
               if (el.isPinching) {
                 el.startX = null;
                 el.isPinching = false;
-                return; // 👈 completely ignore swipe
+
+                setTimeout(() => setIsZooming(false), 120);
+                return;
               }
 
               if (e.changedTouches.length !== 1) return;
@@ -381,8 +384,6 @@ export default function GalleryPage() {
 
               el.startX = null;
             }}
-
-
           >
             {/* Fullscreen Image */}
             <div className="relative w-screen min-h-dvh max-w-screen max-h-screen overflow-hidden">
@@ -394,57 +395,138 @@ export default function GalleryPage() {
                 sizes="100vw"
               />
             </div>
-          </div>
 
 
-
-
-          {/* DESKTOP VERSION (scrollable tall image) */}
-          <div
-            className="
-                hidden md:flex 
-                items-center justify-center 
-                w-full h-full select-none
-                p-6 animate-fadeIn
-              "
-            onClick={() => closeLightbox()}
-
-          >
-            {/* LEFT ARROW */}
-            <button
-              onClick={(e) => { e.stopPropagation(); goPrev(); }}
-              className="cursor-pointer absolute left-6 text-white/70 hover:text-white text-9xl z-[10000]"
+            {/* MOBILE PREVIEW STRIP */}
+            <div
+              // className="md:hidden absolute bottom-4 left-0 right-0 px-4"
+              className={cn(
+                "md:hidden absolute bottom-4 left-0 right-0 px-4 transition-all duration-200 ease-out",
+                isZooming
+                  ? "opacity-0 translate-y-4 pointer-events-none"
+                  : "opacity-100 translate-y-0"
+              )}
+              ref={mobileThumbContainerRef}
             >
-              ‹
-            </button>
-
-            {/* RIGHT ARROW */}
-            <button
-              onClick={(e) => { e.stopPropagation(); goNext(); }}
-              className="cursor-pointer absolute right-6 text-white/70 hover:text-white text-9xl z-[10000]"
-            >
-              ›
-            </button>
-
-            {/* FULLSCREEN IMAGE */}
-            <div className="relative w-full h-full max-w-[90vw] max-h-[90vh]">
-              <Image
-                src={selectedImage}
-                alt="Full view"
-                fill
-                className="object-contain rounded-xl"
-                sizes="100vw"
-              />
+              <div className="flex gap-3 overflow-x-auto pb-2
+              touch-pan-x
+              scrollbar-hide     
+              snap-x snap-mandatory               
+                    [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]
+                    /* Webkit prefix for compatibility */
+                    [-webkit-mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]"
+              >
+                {filteredPhotos.map((photo, index) => (
+                  <button
+                    key={photo.id}
+                    ref={index === currentIndex ? activeMobileThumbRef : null}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setCurrentIndex(index);
+                      setSelectedImage(photo.url);
+                    }}
+                    className={cn(
+                      "relative h-12 w-16 flex-shrink-0 rounded-lg overflow-hidden transition-all",
+                      index === currentIndex
+                        ? "ring-2 ring-white scale-105"
+                        : "opacity-60"
+                    )}
+                  >
+                    <Image
+                      src={photo.url}
+                      alt=""
+                      fill
+                      className="object-cover"
+                      sizes="80px"
+                    />
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
 
 
+          {/* desktop lightbox */}
+
+
+          {/* DESKTOP LIGHTBOX WRAPPER */}
+          <div className="hidden md:flex flex-col items-center justify-between w-full h-full p-6 select-none animate-fadeIn"
+            onClick={() => closeLightbox()}>
+
+            {/* TOP/CENTER SECTION: FULLSCREEN IMAGE */}
+            <div className="relative w-full flex-grow flex items-center justify-center mb-28">
+              {/* LEFT ARROW */}
+              <button
+                onClick={(e) => { e.stopPropagation(); goPrev(); }}
+                className="absolute left-0 text-white/70 hover:text-white text-9xl z-[50] transition-colors"
+              >
+                ‹
+              </button>
+
+              {/* <div className="relative w-full h-full max-w-[80vw] max-h-[80vh]"> */}
+              <div className="relative w-full h-full max-w-[95vw] max-h-[90vh]">
+                <Image
+                  src={selectedImage}
+                  alt="Full view"
+                  fill
+                  className="object-contain rounded-xl"
+                  sizes="100vw"
+                  priority
+                />
+              </div>
+
+              {/* RIGHT ARROW */}
+              <button
+                onClick={(e) => { e.stopPropagation(); goNext(); }}
+                className="absolute right-0 text-white/70 hover:text-white text-9xl z-[50] transition-colors"
+              >
+                ›
+              </button>
+            </div>
+
+            {/* BOTTOM SECTION: THUMBNAIL RAIL */}
+            <div
+              ref={thumbContainerRef}
+              className="absolute bottom-10 left-1/2 -translate-x-1/2 w-[85vw] max-w-4xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div
+                className="flex gap-2 overflow-x-auto px-6 py-3
+                 bg-black/60 backdrop-blur-md rounded-2xl
+                 scrollbar-hide
+                 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]
+                 [-webkit-mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]"
+              >
+                {filteredPhotos.map((photo, index) => (
+                  <button
+                    key={photo.id}
+                    ref={index === currentIndex ? activeThumbRef : null}
+                    onClick={() => {
+                      setCurrentIndex(index);
+                      setSelectedImage(photo.url);
+                    }}                    
+                    className={cn(
+                      "relative h-14 w-20 cursor-pointer flex-shrink-0 rounded-md overflow-hidden transition-all duration-300",
+                      index === currentIndex
+                        ? "ring-2 ring-white scale-110 z-10"
+                        : "opacity-40 hover:opacity-100"
+                    )}
+                  >
+                    <Image
+                      src={photo.url}
+                      alt=""
+                      fill
+                      className="object-cover"
+                      sizes="100px"
+                    />
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       )
       }
-
-
-
     </div >
   );
 }

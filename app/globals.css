@@ -113,6 +113,13 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  scrollbar-width: none;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -159,12 +166,15 @@
   }
 }
 
-
 /* grey shade fix in home page */
 
 @keyframes heroImageFade {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .animate-heroImage {
@@ -172,7 +182,6 @@
 }
 
 /* skelton on gallery page  */
-
 
 @keyframes shimmer {
   0% {
@@ -182,7 +191,6 @@
     transform: translateX(50%);
   }
 }
-
 
 /* 
 @keyframes smoothPulse {
