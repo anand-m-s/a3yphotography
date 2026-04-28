@@ -37,9 +37,15 @@ export default function GalleryPage() {
 
   const [isZooming, setIsZooming] = useState(false);
 
+  const [isZoomed, setIsZoomed] = useState(false);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [start, setStart] = useState({ x: 0, y: 0 });
 
 
-  const widths = ["w-24", "w-25", "w-24", "w-25", "w-26", "w-52"];
+
+
+  const widths = ["w-13", "w-25", "w-24", "w-25", "w-26", "w-52"];
 
 
   // fetch categories + images from API
@@ -69,7 +75,7 @@ export default function GalleryPage() {
   // build filter buttons (All + dynamic categories)
   const filterOptions = useMemo(
     () => [
-      { id: "all", label: "All Work" },
+      { id: "all", label: "All" },
       ...categories.map((cat) => ({
         id: cat.id,
         label: cat.name,
@@ -257,7 +263,8 @@ export default function GalleryPage() {
                 }}
 
               >
-                <div className="relative aspect-[4/5]">
+                {/* <div className="relative aspect-[4/5]"> */}
+                <div className="relative w-full aspect-[4/5] overflow-hidden">
                   <Image
                     src={photo.url}
                     alt="Photography"
@@ -392,7 +399,8 @@ export default function GalleryPage() {
                 alt="Full view"
                 fill
                 className="object-contain"
-                sizes="100vw"
+                // sizes="100vw"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
               />
             </div>
 
@@ -458,27 +466,70 @@ export default function GalleryPage() {
               {/* LEFT ARROW */}
               <button
                 onClick={(e) => { e.stopPropagation(); goPrev(); }}
-                className="absolute left-0 text-white/70 hover:text-white text-9xl z-[50] transition-colors"
+                className="absolute cursor-pointer left-0 text-white/70 hover:text-white text-9xl z-[50] transition-colors"
               >
                 ‹
               </button>
 
               {/* <div className="relative w-full h-full max-w-[80vw] max-h-[80vh]"> */}
-              <div className="relative w-full h-full max-w-[95vw] max-h-[90vh]">
-                <Image
+              {/* <div className="relative w-full h-full max-w-[95vw] max-h-[90vh]"> */}
+              <div
+                className="relative w-full h-full max-w-[95vw] max-h-[90vh] overflow-hidden cursor-zoom-in"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsZoomed(!isZoomed);
+                  setPosition({ x: 0, y: 0 });
+                }}
+                onMouseDown={(e) => {
+                  if (!isZoomed) return;
+                  setIsDragging(true);
+                  setStart({ x: e.clientX - position.x, y: e.clientY - position.y });
+                }}
+                onMouseMove={(e) => {
+                  if (!isDragging || !isZoomed) return;
+                  setPosition({
+                    x: e.clientX - start.x,
+                    y: e.clientY - start.y,
+                  });
+                }}
+                onMouseUp={() => setIsDragging(false)}
+                onMouseLeave={() => setIsDragging(false)}
+              >
+
+                {/* <Image
                   src={selectedImage}
                   alt="Full view"
                   fill
                   className="object-contain rounded-xl"
-                  sizes="100vw"
-                  priority
+                  // sizes="100vw"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
+                // priority
+                /> */}
+
+
+                <Image
+                  src={selectedImage}
+                  alt="Full view"
+                  fill
+                  draggable={false}
+                  className={cn(
+                    "object-contain rounded-xl transition-transform duration-300 ease-out select-none",
+                    isZoomed ? "cursor-grab" : ""
+                  )}
+                  style={{
+                    transform: isZoomed
+                      ? `scale(2) translate(${position.x / 2}px, ${position.y / 2}px)`
+                      : "scale(1) translate(0,0)",
+                  }}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
                 />
+
               </div>
 
               {/* RIGHT ARROW */}
               <button
                 onClick={(e) => { e.stopPropagation(); goNext(); }}
-                className="absolute right-0 text-white/70 hover:text-white text-9xl z-[50] transition-colors"
+                className="absolute cursor-pointer right-0 text-white/70 hover:text-white text-9xl z-[50] transition-colors"
               >
                 ›
               </button>
@@ -504,7 +555,7 @@ export default function GalleryPage() {
                     onClick={() => {
                       setCurrentIndex(index);
                       setSelectedImage(photo.url);
-                    }}                    
+                    }}
                     className={cn(
                       "relative h-14 w-20 cursor-pointer flex-shrink-0 rounded-md overflow-hidden transition-all duration-300",
                       index === currentIndex
@@ -530,3 +581,6 @@ export default function GalleryPage() {
     </div >
   );
 }
+
+
+

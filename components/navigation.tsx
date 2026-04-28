@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-import { Home, Images, User, Mail, Menu, X, Sun, Moon } from "lucide-react";
+import { Home, Images, User, Mail, Menu, X, Sun, Moon,Briefcase,Package} from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 const navItems = [
     { href: "/", label: "Home" },
     { href: "/gallery", label: "Gallery" },
+    { href: "/services", label: "Services" },
     { href: "/about", label: "About" },
     { href: "/contact", label: "Contact" },
 ];
@@ -182,8 +183,8 @@ export function Navigation() {
                                     src="/gallery/Aby/profilepic.webp"
                                     alt="A3Y Photography profile"
                                     fill
-                                    className="object-cover scale-[1.34] object-center"
-                                    sizes="80px"
+                                    className="object-cover scale-[1.34] object-center will-change-transform"
+                                    sizes="112px"
                                     priority
                                 />
                             </div>
@@ -200,6 +201,7 @@ export function Navigation() {
                             {[
                                 { href: "/", label: "Home", icon: <Home className="h-5 w-5" /> },
                                 { href: "/gallery", label: "Gallery", icon: <Images className="h-5 w-5" /> },
+                                { href: "/services", label: "Services", icon: <Package className="h-5 w-5" /> },
                                 { href: "/about", label: "About", icon: <User className="h-5 w-5" /> },
                                 { href: "/contact", label: "Contact", icon: <Mail className="h-5 w-5" /> },
                             ].map((item) => (
