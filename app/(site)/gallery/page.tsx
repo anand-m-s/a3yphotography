@@ -52,7 +52,7 @@ export default function GalleryPage({ initialSlug }: { initialSlug?: string }) {
 
 
 
-  const widths = ["w-13", "w-25", "w-24", "w-25", "w-26", "w-52"];
+  const widths = ["w-18", "w-25", "w-24", "w-25", "w-26", "w-52"];
 
 
   // fetch categories + images from API
