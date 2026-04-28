@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 
 
@@ -19,7 +20,13 @@ type GalleryImage = {
   categorySlug?: string;
 };
 
-export default function GalleryPage() {
+
+export default function GalleryPage({ initialSlug }: { initialSlug?: string }) {
+
+
+  const router = useRouter()
+
+
   const [categories, setCategories] = useState<CategoryDoc[]>([]);
   const [images, setImages] = useState<GalleryImage[]>([]);
   const [activeCategory, setActiveCategory] = useState<string>("all");
@@ -84,20 +91,35 @@ export default function GalleryPage() {
     [categories]
   );
 
+  // useEffect(() => {
+  //   if (!categories.length) return;
+
+  //   const hash = window.location.hash.replace("#", "").toLowerCase();
+  //   if (!hash) return;
+
+  //   const match = categories.find(
+  //     (cat) => cat.slug.toLowerCase() === hash
+  //   );
+
+  //   if (match) {
+  //     setActiveCategory(match.id);
+  //   }
+  // }, [categories]);
+
+
   useEffect(() => {
     if (!categories.length) return;
 
-    const hash = window.location.hash.replace("#", "").toLowerCase();
-    if (!hash) return;
+    if (!initialSlug) return;
 
     const match = categories.find(
-      (cat) => cat.slug.toLowerCase() === hash
+      (cat) => cat.slug.toLowerCase() === initialSlug.toLowerCase()
     );
 
     if (match) {
       setActiveCategory(match.id);
     }
-  }, [categories]);
+  }, [categories, initialSlug]);
 
   useEffect(() => {
     if (activeCategory !== "all") {
@@ -221,7 +243,17 @@ export default function GalleryPage() {
             {filterOptions.map((category) => (
               <button
                 key={category.id}
-                onClick={() => setActiveCategory(category.id)}
+                // onClick={() => setActiveCategory(category.id)}
+                onClick={() => {
+                  if (category.id === "all") {
+                    router.push("/gallery");
+                  } else {
+                    const selected = categories.find(c => c.id === category.id);
+                    if (selected) {
+                      router.push(`/gallery/${selected.slug}`);
+                    }
+                  }
+                }}            
                 className={cn(
                   "px-6 py-2 rounded-full text-sm tracking-wide transition-all cursor-pointer",
                   activeCategory === category.id

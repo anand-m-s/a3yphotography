@@ -46,7 +46,7 @@ export default function ServicesPage() {
         <div className="min-h-dvh bg-background text-foreground">
 
             {/* HERO */}
-            <section className="text-center py-20 px-6">
+            <section className="text-center mx-auto mt-4 py-20 px-6">
                 {/* <div className="flex justify-center mb-4">
                     <Briefcase className="h-6 w-6 text-muted-foreground" />
                 </div> */}
@@ -114,7 +114,7 @@ export default function ServicesPage() {
             </section>
 
             {/* ADD-ONS */}
-            <section className="px-6 pb-20">
+            {/* <section className="px-6 pb-20">
                 <div className="max-w-4xl mx-auto text-center">
                     <h2 className="text-2xl font-serif mb-6">
                         Add-ons
@@ -132,7 +132,7 @@ export default function ServicesPage() {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> */}
 
             {/* CTA */}
             <section className="text-center pb-24 px-6">
