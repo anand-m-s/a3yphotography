@@ -8,6 +8,7 @@ import { AnimatedTestimonials } from "@/components/ui/animated-testimonials"
 import { TypewriterEffect } from "@/components/ui/typewriter-effect";
 import { useState, useEffect, type FormEvent, type ChangeEvent } from "react"
 import { toast } from "sonner"
+import { cn } from "@/lib/utils";
 
 
 
@@ -34,6 +35,7 @@ export default function HomePage() {
   const [featured, setFeatured] = useState<FeaturedCategory[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isDesktop, setIsDesktop] = useState(false);
+  const [showIntro, setShowIntro] = useState(false)
 
 
   useEffect(() => {
@@ -61,6 +63,46 @@ export default function HomePage() {
       className: "text-slate-700 dark:text-slate-300",
     }
 
+  ];
+
+  const intro = [
+    { text: "I'm" },
+    { text: "a" },
+    { text: "photographer" },
+    { text: "based" },
+    { text: "in" },
+    { text: "Paris.", className: "text-slate-700 dark:text-slate-300" },
+
+    { text: "I" },
+    { text: "capture" },
+    { text: "people" },
+    { text: "and" },
+    { text: "moments" },
+    { text: "as" },
+    { text: "they" },
+    { text: "truly" },
+    { text: "are," },
+
+    { text: "natural," },
+    { text: "warm," },
+    { text: "and" },
+    { text: "full" },
+    { text: "of" },
+    { text: "life." },
+
+    { text: "Every" },
+    { text: "photograph" },
+    { text: "I" },
+    { text: "create" },
+    { text: "is" },
+    { text: "meant" },
+    { text: "to" },
+    { text: "feel" },
+    { text: "real," },
+
+    { text: "honest," },
+    { text: "and" },
+    { text: "unforgettable.", className: "text-slate-700 dark:text-slate-300" },
   ];
 
 
@@ -357,13 +399,32 @@ export default function HomePage() {
               className="mb-8"
             >
 
-              <TypewriterEffect words={words} />
+              <TypewriterEffect
+                words={words}
+                onComplete={() => setShowIntro(true)}
+                speed={0.04}
+              />
             </div>
 
-            <div className="space-y-6 text-lg leading-relaxed text-muted-foreground">
-              <p>
-                I'm a photographer based in Paris. I capture people and moments as they truly are, natural, warm, and full of life. Every photograph I create is meant to feel real, honest, and unforgettable.
-              </p>
+            <div className="space-y-6 text-lg leading-relaxed text-muted-foreground min-h-[120px]">        
+              <div
+                className={cn(
+                  "transition-opacity duration-300",
+                  showIntro ? "opacity-100" : "opacity-0"
+                )}
+              >
+                <TypewriterEffect
+                  words={intro}
+                  speed={0.015}
+                  className="text-xl md:text-xl font-normal"
+                />
+              </div>
+
+              <section aria-label="Introduction">
+                <p className="sr-only">
+                  I'm a photographer based in Paris. I capture people and moments as they truly are, natural, warm, and full of life. Every photograph I create is meant to feel real, honest, and unforgettable.
+                </p>
+              </section>
 
 
             </div>

@@ -8,10 +8,14 @@ export const TypewriterEffect = ({
   words,
   className,
   cursorClassName,
+  onComplete,
+  speed,
 }: {
   words: { text: string; className?: string }[];
   className?: string;
   cursorClassName?: string;
+  onComplete?: () => void;
+  speed?:number;
 }) => {
   const wordsArray = words.map((word) => ({
     ...word,
@@ -24,15 +28,20 @@ export const TypewriterEffect = ({
   useEffect(() => {
     if (!isInView) return;
 
-    animate(
+   const charDelay = speed??0.035
+   const controls = animate(
       "[data-char]",
       { opacity: 1, y: 0 },
       {
         duration: 0.25,
-        delay: stagger(0.035),
+        delay: stagger(charDelay),
         ease: "easeOut",
       }
     );
+
+    controls.then(()=>{
+      onComplete?.()
+    })
   }, [isInView]);
 
   return (
