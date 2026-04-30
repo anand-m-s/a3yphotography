@@ -528,10 +528,10 @@ export default function HomePage() {
               <div className="flex items-center justify-between gap-4 mb-6">
                 <div>
                   <h3 className="text-2xl font-serif font-semibold leading-tight text-black dark:text-white">
-                    Share Your Experience
+                    Leave a Review
                   </h3>
                   <p className="text-sm text-muted-foreground dark:text-neutral-300 mt-1">
-                    A short, honest note helps others trust the journey.
+                    Loved your shoot? Leave a quick review, it means a lot
                   </p>
                 </div>
               </div>
@@ -593,7 +593,7 @@ export default function HomePage() {
 
                 {/* Testimonial */}
                 <label className="block">
-                  <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Testimonial</span>
+                  <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Your Review</span>
                   <textarea
                     name="quote"
                     value={form.quote ?? ""}
@@ -633,7 +633,7 @@ export default function HomePage() {
                         <span>Adding...</span>
                       </>
                     ) : (
-                      "Add Testimonial"
+                      "Submit Review"
                     )}
                   </button>
                 </div>

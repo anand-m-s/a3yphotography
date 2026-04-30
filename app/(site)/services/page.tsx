@@ -47,6 +47,7 @@ const packages = [
 export default function ServicesPage() {
 
     const [images, setImages] = useState([]);
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
 
     useEffect(() => {
         fetch("/api/dome?limit=12")
@@ -66,24 +67,39 @@ export default function ServicesPage() {
 
     return (
         <div className="min-h-dvh bg-background text-foreground">
-        
+
             <section className="relative h-[80vh] flex items-center justify-center overflow-hidden  mx-auto mt-4 py-20 px-6 text-center">
 
                 {/* Dome background */}
                 <div className="absolute inset-0 ">
                     {images.length > 0 && (
+
+
+
                         <DomeGallery
-                            images={images.slice(0, 12)}
-                            fit={0.6}
-                            minRadius={400}
-                            segments={16}
-                            dragDampening={1}
+                            images={images.slice(0, isMobile ? 8 : 12)}
+                            fit={isMobile ? 0.5 : 0.6}
+                            minRadius={isMobile ? 300 : 400}
+                            segments={isMobile ? 10 : 16}
+                            dragDampening={isMobile ? 0.85 : 1}
                             grayscale={false}
+                            maxVerticalRotationDeg={0}
+                            overlayBlurColor="transparent"
                         />
+
                     )}
                 </div>
                 {/* Overlay (visual only) */}
-                <div className="absolute inset-0 bg-black/30 z-[1] pointer-events-none" />
+
+
+
+                <div
+                    className="
+                        absolute inset-0 pointer-events-none
+                        bg-transparent
+                        dark:bg-gradient-to-b
+                        dark:from-black/30 dark:via-black/35 dark:to-black/70
+                        "/>
 
                 {/* Text */}
                 <div className="relative z-10 text-center px-6">
@@ -95,7 +111,7 @@ export default function ServicesPage() {
                         Simple, transparent pricing tailored for capturing your best moments.
                     </p>
                 </div>
-              
+
             </section>
 
             {/* PRICING CARDS */}
@@ -150,7 +166,7 @@ export default function ServicesPage() {
 
                 </div>
             </section>
-          
+
             {/* CTA */}
             <section className="text-center pb-24 px-6">
                 <h2 className="text-3xl font-serif mb-4">
