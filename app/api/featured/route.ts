@@ -3,8 +3,12 @@ import { connectDB } from "@/lib/mongodb";
 import { Category } from "@/lib/models/Category";
 import { Image } from "@/lib/models/Images";
 
-export async function GET() {
+
+export async function GET(req:Request) {
     await connectDB();
+
+     const { searchParams } = new URL(req.url);
+  const limit = Number(searchParams.get("limit")) || 8;
 
     const categories = await Category.find().lean();
     const withRandomImage = await Promise.all(
@@ -26,8 +30,8 @@ export async function GET() {
             };
         })
     );
-
-    const filtered = withRandomImage.filter(Boolean).slice(0,8);
+    
+    const filtered = withRandomImage.filter(Boolean).slice(0,limit);
     // const filtered = withRandomImage.filter(Boolean);
 
     

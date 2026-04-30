@@ -2,7 +2,8 @@
 
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { Briefcase } from "lucide-react";
+import DomeGallery from "@/components/DomeGallery";
+import { useEffect, useState } from "react";
 
 const packages = [
     {
@@ -41,23 +42,60 @@ const packages = [
     },
 ];
 
+
+
 export default function ServicesPage() {
+
+    const [images, setImages] = useState([]);
+
+    useEffect(() => {
+        fetch("/api/dome?limit=12")
+            .then(res => res.json())
+            .then(data => {
+                const formatted = (data.data || [])
+                    .map((item: any) => item.imageUrl)
+                    .filter((url: string) => url && url.trim() !== "")
+                    .map((url: string) => ({
+                        src: url,
+                        alt: "A3Y Photography"
+                    }));
+                setImages(formatted);
+            });
+    }, []);
+
+
     return (
         <div className="min-h-dvh bg-background text-foreground">
+        
+            <section className="relative h-[80vh] flex items-center justify-center overflow-hidden  mx-auto mt-4 py-20 px-6 text-center">
 
-            {/* HERO */}
-            <section className="text-center mx-auto mt-4 py-20 px-6">
-                {/* <div className="flex justify-center mb-4">
-                    <Briefcase className="h-6 w-6 text-muted-foreground" />
-                </div> */}
+                {/* Dome background */}
+                <div className="absolute inset-0 ">
+                    {images.length > 0 && (
+                        <DomeGallery
+                            images={images.slice(0, 12)}
+                            fit={0.6}
+                            minRadius={400}
+                            segments={16}
+                            dragDampening={1}
+                            grayscale={false}
+                        />
+                    )}
+                </div>
+                {/* Overlay (visual only) */}
+                <div className="absolute inset-0 bg-black/30 z-[1] pointer-events-none" />
 
-                <h1 className="text-4xl md:text-5xl font-serif mb-4">
-                    Photography Services
-                </h1>
+                {/* Text */}
+                <div className="relative z-10 text-center px-6">
+                    <h1 className="text-4xl md:text-6xl font-serif mb-4">
+                        Photography Services
+                    </h1>
 
-                <p className="text-muted-foreground max-w-xl mx-auto">
-                    Simple, transparent pricing tailored for capturing your best moments.
-                </p>
+                    <p className="text-muted-foreground max-w-xl mx-auto">
+                        Simple, transparent pricing tailored for capturing your best moments.
+                    </p>
+                </div>
+              
             </section>
 
             {/* PRICING CARDS */}
@@ -112,28 +150,7 @@ export default function ServicesPage() {
 
                 </div>
             </section>
-
-            {/* ADD-ONS */}
-            {/* <section className="px-6 pb-20">
-                <div className="max-w-4xl mx-auto text-center">
-                    <h2 className="text-2xl font-serif mb-6">
-                        Add-ons
-                    </h2>
-
-                    <div className="grid md:grid-cols-3 gap-4 text-sm text-muted-foreground">
-                        <div className="p-4 border rounded-xl">
-                            Extra Hour — €50
-                        </div>
-                        <div className="p-4 border rounded-xl">
-                            Extra Edits — €20 / 10 photos
-                        </div>
-                        <div className="p-4 border rounded-xl">
-                            Travel — Based on location
-                        </div>
-                    </div>
-                </div>
-            </section> */}
-
+          
             {/* CTA */}
             <section className="text-center pb-24 px-6">
                 <h2 className="text-3xl font-serif mb-4">

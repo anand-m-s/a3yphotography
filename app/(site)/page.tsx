@@ -109,11 +109,6 @@ export default function HomePage() {
       className: "text-slate-700 dark:text-slate-300",
     }
 
-
-
-
-
-
   ];
 
 
@@ -347,6 +342,38 @@ export default function HomePage() {
               className="tracking-widest uppercase text-sm font-light"
             >Explore Gallery</Link>
           </Button>
+          <br />
+          <Button asChild size="lg">
+            <Link href="/contact"
+              className="tracking-widest uppercase text-sm font-light mt-5"
+            >Book now</Link>
+          </Button>
+        </div>
+        <div
+          onClick={() => {
+            window.scrollTo({
+              top: window.innerHeight,
+              behavior: "smooth",
+            });
+          }}
+          className="cursor-pointer absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 animate-bounce"          
+          >
+
+          <span className="text-white/70 text-xs tracking-widest uppercase">
+            Scroll
+          </span>
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6 text-white/80"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+
         </div>
 
       </section>
@@ -408,7 +435,7 @@ export default function HomePage() {
               : featured.slice(0, previewCount).map((cat) => (
                 <Link
                   key={cat._id}
-                  href={`/gallery#${cat.slug}`}
+                  href={`/gallery/${cat.slug}`}
                   className="group relative overflow-hidden rounded-sm"
                 >
                   <div className="relative w-full" style={{ aspectRatio: "3 / 4" }}>

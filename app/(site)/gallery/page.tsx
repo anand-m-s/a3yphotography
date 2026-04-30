@@ -281,7 +281,8 @@ export default function GalleryPage({ initialSlug }: { initialSlug?: string }) {
         ) : (
           <div
             data-cursor="gallery"
-            className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
+            // className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 space-y-4">
             {filteredPhotos.map((photo, index) => (
               <div
                 key={photo.id}
