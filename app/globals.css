@@ -137,8 +137,6 @@
   }
 }
 
-
-
 .animate-fadeIn {
   animation: fadeIn 0.25s ease-out;
 }
@@ -155,6 +153,7 @@
     transform: translateY(0px);
   }
 }
+
 
 @keyframes pulseGlow {
   0% {
@@ -187,32 +186,38 @@
 
 @keyframes shimmer {
   0% {
-    transform: translateX(-50%);
+    background-position: -200% 0;
   }
   100% {
-    transform: translateX(50%);
+    background-position: 200% 0;
   }
 }
 
-/* 
-@keyframes smoothPulse {
-  0% { opacity: 0.6; }
-  50% { opacity: 1; }
-  100% { opacity: 0.6; }
+
+
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    #e0e0e0 0%,
+    #e0e0e0 25%,
+    #f5f5f5 50%,
+    #e0e0e0 75%,
+    #e0e0e0 100%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 2s ease-in-out infinite;
 }
 
-.animate-smoothPulse {
-  animation: smoothPulse 1.6s ease-in-out infinite;
+/* Dark mode */
+.dark .skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    #2a2a2a 0%,
+    #2a2a2a 25%,
+    #404040 50%,
+    #2a2a2a 75%,
+    #2a2a2a 100%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 2s ease-in-out infinite;
 }
-
-
-
-@keyframes softGlow {
-  0% { opacity: 0.6; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.02); }
-  100% { opacity: 0.6; transform: scale(1); }
-}
-
-.animate-softGlow {
-  animation: softGlow 2.4s ease-in-out infinite;
-} */

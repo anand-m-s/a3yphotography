@@ -232,7 +232,7 @@ export default function GalleryPage({ initialSlug }: { initialSlug?: string }) {
             {Array.from({ length: 6 }).map((_, i) => (
               <div
                 key={i}
-                className={`h-9 ${widths[i % widths.length]} rounded-full bg-muted`}
+                className={`h-9 ${widths[i % widths.length]} rounded-full skeleton-shimmer`}
 
               >
               </div>
@@ -253,7 +253,7 @@ export default function GalleryPage({ initialSlug }: { initialSlug?: string }) {
                       router.push(`/gallery/${selected.slug}`);
                     }
                   }
-                }}            
+                }}
                 className={cn(
                   "px-6 py-2 rounded-full text-sm tracking-wide transition-all cursor-pointer",
                   activeCategory === category.id
@@ -267,16 +267,16 @@ export default function GalleryPage({ initialSlug }: { initialSlug?: string }) {
           </div>
         }
 
-        {/* Photo Grid */}
-        {loading ? (
+        {/* Photo Grid */}                
+         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {Array.from({ length: 6 }).map((_, i) => (
               <div
                 key={i}
-                className="aspect-[4/5] rounded-sm bg-muted animate-pulse"
+                className="aspect-[4/5] rounded-sm  skeleton-shimmer "
               />
             ))}
-          </div>
+          </div> 
 
         ) : (
           <div

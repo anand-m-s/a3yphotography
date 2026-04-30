@@ -11,54 +11,6 @@ import { toast } from "sonner"
 
 
 
-function Shimmer() {
-  return (
-    <div className="absolute inset-0 overflow-hidden">
-      {/* soft base pulse */}
-      <div className="absolute inset-0 animate-pulse bg-white/5" />
-
-      {/* moving light */}
-      <div
-        className="
-          absolute inset-y-0 -left-1/2 w-[200%]
-          animate-[shimmer_2.5s_ease-in-out_infinite]
-          bg-gradient-to-r
-          from-transparent
-          via-white/12
-          to-transparent
-        "
-      />
-    </div>
-  );
-}
-
-
-
-
-
-function GalleryCardSkeleton() {
-  return (
-    <div className="relative overflow-hidden rounded-sm bg-muted">
-      <div
-        className="relative w-full bg-muted-foreground/10"
-        style={{ aspectRatio: "3 / 4" }}
-      >
-        <Shimmer />
-      </div>
-
-      <div
-        // className="absolute bottom-0 left-0 right-0 p-6"
-        className="p-2 tracking-widest flex justify-center"
-      >
-        <div className="relative h-6 w-2/3 rounded bg-muted-foreground/10 overflow-hidden">
-          <Shimmer />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-
 export default function HomePage() {
   const { theme } = useTheme()
 
@@ -122,7 +74,7 @@ export default function HomePage() {
 
 
       setFeatured(data);
-      setIsLoading(false);
+      setIsLoading(true);
     }
 
     fetchFeatured();
@@ -290,12 +242,23 @@ export default function HomePage() {
       <section className="relative min-h-dvh overflow-hidden flex items-center justify-center">
 
         {/* BACKGROUND IMAGE */}
-        <div
+        {/* <div
           className="absolute inset-0 bg-center bg-cover bg-black animate-heroImage"
           style={{
             backgroundImage: `url('/gallery/Aby/_MG_8432.jpg')`,
           }}
+        /> */}
+
+
+        <Image
+          src="/gallery/Aby/_MG_8432.jpg"
+          alt="Paris photography by A3Y"
+          fill
+          priority
+          // className="object-cover absolute inset-0 bg-center bg-cover bg-black animate-heroImage"
+          className="absolute inset-0 bg-center bg-cover bg-black animate-heroImage object-cover"
         />
+
 
         {/* GRADIENT OVERLAY */}
         {/* <div
@@ -356,8 +319,8 @@ export default function HomePage() {
               behavior: "smooth",
             });
           }}
-          className="cursor-pointer absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 animate-bounce"          
-          >
+          className="cursor-pointer absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 animate-bounce"
+        >
 
           <span className="text-white/70 text-xs tracking-widest uppercase">
             Scroll
@@ -413,24 +376,24 @@ export default function HomePage() {
         </div>
       </section>
 
-
       {/* Featured Work Preview */}
-
-
       <section className="py-24 md:py-24 bg-muted/45 rounded-4xl">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-11">
             <h2 className="font-serif text-3xl md:text-5xl mb-6">
               Featured
             </h2>
           </div>
 
-
-
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {isLoading
               ? Array.from({ length: previewCount }).map((_, i) => (
-                <GalleryCardSkeleton key={i} />
+                <div key={i} className="relative overflow-hidden rounded-sm">
+                  <div className="skeleton-shimmer w-full" style={{ aspectRatio: "3 / 4" }} />
+                  <div className="p-2 flex justify-center">
+                    <div className="skeleton-shimmer h-4 w-2/3 rounded-full" />
+                  </div>
+                </div>
               ))
               : featured.slice(0, previewCount).map((cat) => (
                 <Link
@@ -464,10 +427,21 @@ export default function HomePage() {
 
 
 
-          <div className="text-center mt-3.5">
+          {/* <div className="text-center mt-3.5">
             <Button asChild size="lg">
               <Link href="/gallery">View Full Gallery</Link>
             </Button>
+          </div> */}
+          <div className="text-center mt-3.5">
+            <p className="text-sm mb-4 tracking-widest">
+              Explore all photography packages and services
+            </p>
+            <Link
+              href="/services"
+              className="tracking-widest uppercase inline-block px-5 py-2.5 rounded-sm border border-black dark:border-white text-sm hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition"
+            >
+              View All Services
+            </Link>
           </div>
         </div>
       </section>

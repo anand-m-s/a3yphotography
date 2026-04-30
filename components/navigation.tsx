@@ -179,22 +179,14 @@ export function Navigation() {
 
 
                         <div className="flex flex-col items-center gap-3 pb-6 border-b border-black/10 dark:border-white/10">
-                            {/* <div className="relative w-28 h-28 rounded-full overflow-hidden ring-2 ring-black/10 dark:ring-white/20">
-                                <Image
-                                    src="/gallery/Aby/profilepic.webp"
-                                    alt="A3Y Photography profile"
-                                    fill
-                                    className="object-cover scale-[1.34] object-center will-change-transform"
-                                    sizes="112px"
-                                    priority
-                                />
-                            </div> */}
-
                             <div className="relative w-28 h-28 rounded-full overflow-hidden ring-2 ring-black/10 dark:ring-white/20">
 
                                 {/* Skeleton */}
                                 {!imgLoaded && (
-                                    <div className="absolute inset-0 bg-neutral-300 dark:bg-neutral-700 animate-pulse" />
+                                    <div
+                                        // className="absolute inset-0 bg-neutral-300 dark:bg-neutral-700 animate-pulse" 
+                                        className="absolute inset-0 skeleton-shimmer"
+                                    />
                                 )}
 
                                 <Image
@@ -219,8 +211,7 @@ export function Navigation() {
                         </div>
 
 
-                        {/* NAV LINKS */}
-                        {/* <nav className="flex flex-col gap-5 mt-10"> */}
+                        {/* NAV LINKS */}                       
                         <nav className="flex flex-col gap-5 mt-12">
                             {[
                                 { href: "/", label: "Home", icon: <Home className="h-5 w-5" /> },
@@ -234,17 +225,19 @@ export function Navigation() {
                                     href={item.href}
                                     onClick={closeMenu}
                                     className={cn(
-                                        "flex items-center justify-center gap-3 px-4 py-3 rounded-xl transition-all ",
+                                        "flex items-center justify-center px-4 py-3 rounded-xl transition-all",
                                         pathname === item.href
                                             ? "bg-black/15 dark:bg-white/15 text-black dark:text-white scale-[1.02]"
                                             : "text-neutral-950 dark:text-neutral-300 hover:bg-black/5 dark:hover:bg-white/10"
                                     )}
                                 >
-                                    <span className="text-neutral-950 dark:text-neutral-200 ">{item.icon}</span>
-                                    <span className="text-sm  font-medium">{item.label}</span>
+                                    {/* fixed-width group keeps all rows aligned */}
+                                    <div className="flex items-center gap-3 w-32">
+                                        <span className="text-neutral-950 dark:text-neutral-200 shrink-0">{item.icon}</span>
+                                        <span className="text-sm font-medium">{item.label}</span>
+                                    </div>
                                 </Link>
                             ))}
-
                         </nav>
                         <div className="mt-auto pt-8 border-t border-black/10 dark:border-white/10">
                             <p className="text-xs text-muted-foreground text-center">
