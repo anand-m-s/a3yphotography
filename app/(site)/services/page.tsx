@@ -102,7 +102,7 @@ export default function ServicesPage() {
                         "/>
 
                 {/* Text */}
-                <div className="relative z-10 text-center px-6">
+                <div className="relative z-10 text-center px-6 pointer-events-none">
                     <h1 className="text-4xl md:text-6xl font-serif mb-4">
                         Photography Services
                     </h1>
