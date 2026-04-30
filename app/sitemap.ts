@@ -11,6 +11,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
     },
     {
+      url: "https://a3yphotography.com/services",
+      lastModified: new Date(),
+    },
+    {
       url: "https://a3yphotography.com/about",
       lastModified: new Date(),
     },
