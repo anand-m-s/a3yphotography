@@ -74,7 +74,7 @@ export default function HomePage() {
 
 
       setFeatured(data);
-      setIsLoading(true);
+      setIsLoading(false);
     }
 
     fetchFeatured();
