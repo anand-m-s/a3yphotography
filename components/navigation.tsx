@@ -58,22 +58,23 @@ export function Navigation() {
             <nav className="fixed top-0 left-0 right-0 z-50 bg-background/10 dark:bg-background/60 backdrop-blur-md border-b">
                 <div className="container mx-auto px-6  py-4 flex items-center justify-between">
 
-                    {/* LOGO */}
-                    <Link href="/" className="flex items-center gap-2 group">
-                        <span className="font-serif text-lg tracking-tight">
-                            A3Y Photography
-                        </span>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="w-6 h-6 text-foreground group-hover:text-accent transition"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            fill="none"
-                            strokeWidth={1.4}
-                        >
-                            <path d="M20 7h-2.6l-1.7-1.7A1 1 0 0 0 15 5h-4l-2 2H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Z" />
-                            <circle cx="13" cy="13" r="3.5" />
-                        </svg>
+                    <Link href="/" className="flex items-center gap-2 group hover:opacity-80 transition">
+                        <Image
+                            src="/icons/icon-192.png"
+                            alt="A3Y Photography"
+                            width={40}
+                            height={40}
+                            className="object-contain rounded-3xl"
+                            priority
+                        />
+                        <div className="flex flex-col leading-none">
+                            <span className="font-serif text-xl tracking-[0.2em]">
+                                A3Y
+                            </span>
+                            <span className="text-[10px] tracking-[0.4em] text-muted-foreground">
+                                PHOTOGRAPHY
+                            </span>
+                        </div>
                     </Link>
 
                     {/* DESKTOP NAV LINKS */}
@@ -211,7 +212,7 @@ export function Navigation() {
                         </div>
 
 
-                        {/* NAV LINKS */}                       
+                        {/* NAV LINKS */}
                         <nav className="flex flex-col gap-5 mt-12">
                             {[
                                 { href: "/", label: "Home", icon: <Home className="h-5 w-5" /> },

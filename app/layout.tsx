@@ -6,8 +6,6 @@ import { Analytics } from "@vercel/analytics/next"
 import { ThemeProvider } from "@/components/theme-provider"
 import { SonnerProvider } from "@/components/sonner-provider"
 import { ConfirmProvider } from "@/components/ui/confirm-dialog";
-
-
 import "./globals.css"
 
 
@@ -22,13 +20,16 @@ export const metadata: Metadata = {
   description: "A3Y Photography (a3yphotography) by Abhishek Das. Paris-based photographer specializing in portraits, landscapes, street photography, and events.",
   manifest: "/manifest.json",
   icons: {
-    icon: "/icons/icon-192.png",
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
+    ],
     apple: "/icons/icon-512.png",
   },
 
 
 
-} 
+}
 export const viewport = {
   themeColor: "#000000",
 };
