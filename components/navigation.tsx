@@ -59,14 +59,14 @@ export function Navigation() {
                 <div className="container mx-auto px-6  py-4 flex items-center justify-between">
 
                     <Link href="/" className="flex items-center gap-2 group hover:opacity-80 transition">
-                        <Image
+                        {/* <Image
                             src="/icons/icon-192.png"
                             alt="A3Y Photography"
                             width={40}
                             height={40}
                             className="object-contain rounded-3xl"
                             priority
-                        />
+                        /> */}
                         <div className="flex flex-col leading-none">
                             <span className="font-serif text-xl tracking-[0.2em]">
                                 A3Y

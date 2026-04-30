@@ -83,7 +83,7 @@ export default function ServicesPage() {
                             segments={isMobile ? 10 : 16}
                             dragDampening={isMobile ? 0.85 : 1}
                             grayscale={false}
-                            maxVerticalRotationDeg={0}
+                            maxVerticalRotationDeg={10}
                             overlayBlurColor="transparent"
                         />
 
