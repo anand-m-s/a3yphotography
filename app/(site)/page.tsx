@@ -415,7 +415,7 @@ export default function HomePage() {
               >
                 <TypewriterEffect
                   words={intro}
-                  speed={0.015}
+                  speed={0.023}
                   className="text-xl md:text-xl font-normal"
                 />
               </div>

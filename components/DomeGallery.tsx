@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useCallback } from 'react';
 import { useGesture } from '@use-gesture/react';
 import './DomeGallery.css';
+import Image from "next/image";
 
 type ImageItem = string | { src: string; alt?: string };
 
@@ -727,21 +728,21 @@ export default function DomeGallery({
   }, []);
 
   useEffect(() => {
-  let raf: number;
+    let raf: number;
 
-  const autoRotate = () => {
-    if (!draggingRef.current && !focusedElRef.current) {
-      rotationRef.current.y += 0.03; // speed control
-      applyTransform(rotationRef.current.x, rotationRef.current.y);
-    }
+    const autoRotate = () => {
+      if (!draggingRef.current && !focusedElRef.current) {
+        rotationRef.current.y += 0.03; // speed control
+        applyTransform(rotationRef.current.x, rotationRef.current.y);
+      }
+
+      raf = requestAnimationFrame(autoRotate);
+    };
 
     raf = requestAnimationFrame(autoRotate);
-  };
 
-  raf = requestAnimationFrame(autoRotate);
-
-  return () => cancelAnimationFrame(raf);
-}, []);
+    return () => cancelAnimationFrame(raf);
+  }, []);
 
   return (
     <div
@@ -789,7 +790,15 @@ export default function DomeGallery({
                   onClick={onTileClick}
                   onPointerUp={onTilePointerUp}
                 >
-                  <img src={it.src} draggable={false} alt={it.alt} />
+                  {/* <img src={it.src} draggable={false} alt={it.alt} /> */}
+                  <Image
+                    src={it.src}
+                    alt={it.alt}
+                    fill
+                    sizes="(max-width: 768px) 120px, 180px"
+                    draggable={false}
+                    style={{ objectFit: "cover" }}
+                  />
                 </div>
               </div>
             ))}
