@@ -11,7 +11,7 @@
 // }
 
 
-import GalleryPage from "../page";
+import GalleryPage from "../GalleryPage";
 import { getGalleryData } from "@/lib/gallery";
 import { getCloudinaryOgImage } from "@/lib/utils/cloudinaryHelper";
 type Props = {

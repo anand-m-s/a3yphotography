@@ -2,6 +2,13 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ContainerScroll } from "@/components/ui/container-scroll-animation"
+import { Metadata } from "next"
+
+export const metadata : Metadata = {
+  title: "About",
+  description:
+    "Learn about Abhishek Das, the photographer behind A3Y Photography in Paris.",
+};
 
 export default function AboutPage() {
   return (
