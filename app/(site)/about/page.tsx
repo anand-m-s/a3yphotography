@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { ContainerScroll } from "@/components/ui/container-scroll-animation"
 import { Metadata } from "next"
 
-export const metadata : Metadata = {
+export const metadata: Metadata = {
   title: "About",
   description:
     "Learn about Abhishek Das, the photographer behind A3Y Photography in Paris.",
@@ -43,7 +43,7 @@ export default function AboutPage() {
 
         {/* Header */}
         <div className="text-center mb-16 hidden md:block">
-          <h1 className="font-serif text-4xl md:text-6xl mb-6">About Me</h1>
+          <h2 className="font-serif text-4xl md:text-6xl mb-6">About Me</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">The story behind the lens</p>
         </div>
 
@@ -64,7 +64,7 @@ export default function AboutPage() {
 
                 For me, photography is more than just creating images, it’s about revealing the unseen beauty in every person and every moment. I believe everyone has a story worth celebrating, and my mission is to make people fall in love with themselves through the way I see them natural and confident.
 
-                Whether it’s a fleeting glance, an intimate smile, or a golden moment of stillness, I strive to capture memories that feel alive, not staged. Each frame I take is a bridge between where you are and how you wish to remember yourself.</p>              
+                Whether it’s a fleeting glance, an intimate smile, or a golden moment of stillness, I strive to capture memories that feel alive, not staged. Each frame I take is a bridge between where you are and how you wish to remember yourself.</p>
             </div>
           </div>
         </div>
