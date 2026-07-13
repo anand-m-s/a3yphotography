@@ -79,8 +79,8 @@ export default function GalleryPage({ initialSlug }: { initialSlug?: string }) {
         }
 
         setCategories(json.data.categories || []);
-        setImages(json.data.images || []);
-        // setImages(shuffleArray(json.data.images || []));
+        // setImages(json.data.images || []);
+        setImages(shuffleArray(json.data.images || []));
       } catch (err) {
         console.error("Error fetching gallery:", err);
       } finally {
@@ -225,25 +225,25 @@ export default function GalleryPage({ initialSlug }: { initialSlug?: string }) {
 
   // filter images based on active category
 
-  // const filteredPhotos = useMemo(() => {
-  //   if (activeCategory === "all") return images;
-  //   return images.filter((img) => img.categoryId === activeCategory);
-  // }, [images, activeCategory]);
-
   const filteredPhotos = useMemo(() => {
-    if (activeCategory === "all") {
-      const shuffled = [...images];
-
-      for (let i = shuffled.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-      }
-
-      return shuffled;
-    }
-
+    if (activeCategory === "all") return images;
     return images.filter((img) => img.categoryId === activeCategory);
   }, [images, activeCategory]);
+
+  // const filteredPhotos = useMemo(() => {
+  //   if (activeCategory === "all") {
+  //     const shuffled = [...images];
+
+  //     for (let i = shuffled.length - 1; i > 0; i--) {
+  //       const j = Math.floor(Math.random() * (i + 1));
+  //       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  //     }
+
+  //     return shuffled;
+  //   }
+
+  //   return images.filter((img) => img.categoryId === activeCategory);
+  // }, [images, activeCategory]);
 
   return (
     <div className="min-h-dvh pt-24 pb-16">
