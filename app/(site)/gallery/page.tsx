@@ -20,6 +20,17 @@ type GalleryImage = {
   categorySlug?: string;
 };
 
+function shuffleArray<T>(array: T[]): T[] {
+  const shuffled = [...array];
+
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+
+  return shuffled;
+}
+
 
 export default function GalleryPage({ initialSlug }: { initialSlug?: string }) {
 
@@ -69,6 +80,7 @@ export default function GalleryPage({ initialSlug }: { initialSlug?: string }) {
 
         setCategories(json.data.categories || []);
         setImages(json.data.images || []);
+        // setImages(shuffleArray(json.data.images || []));
       } catch (err) {
         console.error("Error fetching gallery:", err);
       } finally {
@@ -212,8 +224,24 @@ export default function GalleryPage({ initialSlug }: { initialSlug?: string }) {
 
 
   // filter images based on active category
+
+  // const filteredPhotos = useMemo(() => {
+  //   if (activeCategory === "all") return images;
+  //   return images.filter((img) => img.categoryId === activeCategory);
+  // }, [images, activeCategory]);
+
   const filteredPhotos = useMemo(() => {
-    if (activeCategory === "all") return images;
+    if (activeCategory === "all") {
+      const shuffled = [...images];
+
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+
+      return shuffled;
+    }
+
     return images.filter((img) => img.categoryId === activeCategory);
   }, [images, activeCategory]);
 
@@ -267,8 +295,8 @@ export default function GalleryPage({ initialSlug }: { initialSlug?: string }) {
           </div>
         }
 
-        {/* Photo Grid */}                
-         {loading ? (
+        {/* Photo Grid */}
+        {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {Array.from({ length: 6 }).map((_, i) => (
               <div
@@ -276,7 +304,7 @@ export default function GalleryPage({ initialSlug }: { initialSlug?: string }) {
                 className="aspect-[4/5] rounded-sm  skeleton-shimmer "
               />
             ))}
-          </div> 
+          </div>
 
         ) : (
           <div
