@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import HomePage from "./HomePage";
 
+const description =
+  "Discover A3Y Photography by Paris photographer Abhishek Das, featuring portraits, street, landscape, and event photography.";
+
+
 export const metadata: Metadata = {
   title: "A3Y Photography | Abhishek Das – Paris Photographer",
-  description:
-    "A3Y Photography by Abhishek Das, a Paris-based photographer specializing in portraits, landscapes, street photography, and events. Capturing timeless moments across Paris.",
+  description,
 
   alternates: {
     canonical: "https://a3yphotography.com",
@@ -12,8 +15,7 @@ export const metadata: Metadata = {
 
   openGraph: {
     title: "A3Y Photography | Abhishek Das – Paris Photographer",
-    description:
-      "A3Y Photography by Abhishek Das, a Paris-based photographer specializing in portraits, landscapes, street photography, and events.",
+    description,
     url: "https://a3yphotography.com",
     siteName: "A3Y Photography",
     type: "website",
@@ -31,8 +33,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "A3Y Photography | Abhishek Das – Paris Photographer",
-    description:
-      "A3Y Photography by Abhishek Das, a Paris-based photographer specializing in portraits, landscapes, street photography, and events.",
+    description,
     images: ["https://a3yphotography.com/icons/icon-512.png"],
   },
 

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import ContactPage from "./ContactPage";
 
 export const metadata: Metadata = {
-  title: "Contact",
+  title: "Contact | A3Y Photography",
   description:
     "Get in touch with A3Y Photography to book your photography session in Paris.",
 };

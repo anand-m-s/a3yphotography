@@ -5,7 +5,7 @@ import { ContainerScroll } from "@/components/ui/container-scroll-animation"
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "About",
+  title: "About | A3Y Photography",
   description:
     "Learn about Abhishek Das, the photographer behind A3Y Photography in Paris.",
 };
@@ -29,7 +29,7 @@ export default function AboutPage() {
               </>
             }
           >
-            <img
+            <Image
               src={"/gallery/Aby/_O1A2808bw.jpg"}
               alt="hero"
               height={720}
